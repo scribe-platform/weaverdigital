@@ -1,6 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
 import { url } from '../lib/base';
+import { groups, icons } from '../lib/services';
+
+const svg = (name: string) =>
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${icons[name]}</svg>`;
 
 const checklist = ['Website', 'Hours & info', 'Photos', 'Reviews', 'Google posts'];
 const tabs = [
@@ -16,7 +20,7 @@ const steps = [
   ['Grow', 'I keep it all running.'],
 ];
 ---
-<Base title="Home" description="Websites and Google listings for small local businesses. $99/month founding rate.">
+<Base title="Home" description="Websites, Google listings, reviews, social media and design for small local businesses.">
   <!-- HERO -->
   <section class="hero dots">
     <div class="glow" aria-hidden="true"></div>
@@ -24,10 +28,10 @@ const steps = [
       <div class="hero-copy reveal">
         <span class="tag">For small local businesses</span>
         <h1>Get found<br /><span class="thin">online.</span></h1>
-        <p class="hero-sub muted">Websites and Google listings, done for you.</p>
+        <p class="hero-sub muted">Websites, Google, reviews, social and design.<br />Done for you.</p>
         <div class="actions">
           <a class="btn btn-blue" href={url('/contact')}>Let's talk <span class="arrow">→</span></a>
-          <a class="btn btn-ghost" href={url('/pricing')}>See pricing</a>
+          <a class="btn btn-ghost" href={url('/services')}>See services</a>
         </div>
       </div>
 
@@ -94,8 +98,8 @@ const steps = [
   <section class="section get dots">
     <div class="wrap">
       <div class="head reveal">
-        <h2>What you <span class="thin">get.</span></h2>
-        <p class="muted">All of it, in one monthly price.</p>
+        <h2>See it in <span class="thin">action.</span></h2>
+        <p class="muted">The basics every business needs.</p>
       </div>
       <div class="tabs reveal" data-delay="1">
         <div class="tab-list" role="tablist">
@@ -168,23 +172,23 @@ const steps = [
     </div>
   </section>
 
-  <!-- FOUNDING RATE -->
-  <section class="section">
+  <!-- ALL SERVICES -->
+  <section class="section all dots">
     <div class="wrap">
-      <div class="founding card reveal" data-tilt="5">
-        <div>
-          <span class="tag">Founding rate</span>
-          <p class="price-big">$99<span>/mo</span></p>
-          <p class="muted">No setup fee. Your price never goes up.</p>
-        </div>
-        <div class="spots">
-          <p><strong>10 founding spots</strong></p>
-          <div class="spot-grid" aria-hidden="true">{Array.from({ length: 10 }, () => <span></span>)}</div>
-          <div class="actions">
-            <a class="btn btn-blue" href={url('/contact')}>Claim a spot <span class="arrow">→</span></a>
-            <a class="btn btn-ghost" href={url('/pricing')}>Pricing</a>
-          </div>
-        </div>
+      <div class="head reveal">
+        <h2>Everything I <span class="thin">do.</span></h2>
+        <a class="btn btn-ghost" href={url('/services')}>All services <span class="arrow">→</span></a>
+      </div>
+      <div class="all-grid">
+        {groups.map((g, i) => (
+          <a class="all-card card reveal" data-delay={String(i % 3)} data-tilt="9" href={url(`/services#${g.id}`)}>
+            <div class="ico lift" set:html={svg(g.icon)} />
+            <h3>{g.title}<span class="thin">{g.thin}</span></h3>
+            <p class="muted">{g.line}</p>
+            <ul>{g.items.map((it) => <li>{it.title}</li>)}</ul>
+            <span class="all-go" aria-hidden="true">→</span>
+          </a>
+        ))}
       </div>
     </div>
   </section>
@@ -414,29 +418,33 @@ const steps = [
     .step.lit .step-dot { background: var(--light-blue); border-color: var(--light-blue); color: var(--charcoal); }
     .step h3 { font-size: 1.6rem; margin-bottom: 8px; }
 
-    /* Founding */
-    .founding { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; padding: 56px; border-radius: 36px; box-shadow: var(--shadow-3); }
-    .price-big { font: 600 clamp(4.5rem, 12vw, 8rem)/0.9 var(--heading); letter-spacing: -0.05em; margin: 8px 0 18px; }
-    .price-big span { font-weight: 300; font-size: 0.32em; color: var(--blue); letter-spacing: -0.02em; }
-    .spot-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin: 16px 0 28px; max-width: 320px; }
-    .spot-grid span {
-      aspect-ratio: 1; border-radius: 14px; background: var(--off-white);
-      box-shadow: inset 0 0 0 2px var(--line);
-      transition: transform 0.3s var(--ease), background 0.3s;
+    /* All services */
+    .all-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .all-card { position: relative; display: flex; flex-direction: column; gap: 10px; padding: 30px; text-decoration: none; color: var(--charcoal); min-height: 300px; }
+    .all-card .ico { margin-bottom: 14px; transition: background 0.3s, color 0.3s; }
+    .all-card:hover .ico { background: var(--blue); color: var(--white); }
+    .all-card h3 { font-size: 1.6rem; }
+    .all-card ul { list-style: none; padding: 0; margin: auto 0 0; display: flex; flex-wrap: wrap; gap: 6px; padding-top: 18px; }
+    .all-card li { font-size: 0.8rem; font-weight: 500; padding: 5px 11px; border-radius: 999px; background: var(--off-white); color: var(--gray); }
+    .all-go {
+      position: absolute; top: 28px; right: 28px; width: 40px; height: 40px; border-radius: 50%;
+      display: grid; place-items: center; color: var(--blue); box-shadow: inset 0 0 0 1.5px var(--line);
+      transition: transform 0.35s var(--ease), background 0.3s, color 0.3s, box-shadow 0.3s;
     }
-    .spot-grid span:hover { transform: translateY(-4px); background: var(--blue-tint); }
+    .all-card:hover .all-go { background: var(--blue); color: var(--white); box-shadow: none; transform: rotate(-45deg); }
 
     @media (max-width: 900px) {
       .hero { padding-top: 130px; padding-bottom: 80px; }
-      .hero-grid, .flip-grid, .tabs, .founding { grid-template-columns: 1fr; }
+      .hero-grid, .flip-grid, .tabs { grid-template-columns: 1fr; }
+      .all-grid { grid-template-columns: 1fr 1fr; }
       .stack { height: 400px; transform: perspective(1400px) rotateX(8deg) rotateY(-8deg); }
       .search-card { width: 88%; }
       .chip.c2 { right: 0; }
       .steps { grid-template-columns: 1fr 1fr; row-gap: 40px; }
       .steps-line { display: none; }
-      .founding { padding: 32px 24px; }
       .stage { height: 380px; }
     }
+    @media (max-width: 620px) { .all-grid { grid-template-columns: 1fr; } .all-card { min-height: 0; } }
     @media (max-width: 480px) {
       .steps { grid-template-columns: 1fr; }
       .map-layer { left: 30px; }

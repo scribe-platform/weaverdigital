@@ -1,117 +1,168 @@
 ---
 import Base from '../layouts/Base.astro';
 import { url } from '../lib/base';
+import { groups, icons } from '../lib/services';
 
-// Simple line icons (inline SVG paths, 24x24)
-const icons = {
-  site: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/>',
-  edit: '<path d="M4 20h4L19 9l-4-4L4 16z"/>',
-  pin: '<path d="M12 21s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/>',
-  list: '<path d="M8 6h13M8 12h13M8 18h13"/><circle cx="3.5" cy="6" r="1"/><circle cx="3.5" cy="12" r="1"/><circle cx="3.5" cy="18" r="1"/>',
-  star: '<path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z"/>',
-  chart: '<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
-  lock: '<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
-  globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 3 2.5 15 0 18M12 3c-2.5 3-2.5 15 0 18"/>',
-};
-const included = [
-  ['site', 'Website', '3–5 pages, built for phones'],
-  ['edit', 'Edit it yourself', 'Hours, photos, services'],
-  ['pin', 'Google listing', 'Claimed, verified, filled out'],
-  ['list', 'Directories', 'Your info right everywhere'],
-  ['star', 'Review link', 'Text it after every job'],
-  ['chart', 'Monthly report', 'See what changed'],
-  ['globe', 'Your domain', 'Registered in your name'],
-  ['lock', 'Hosting & security', 'Backups, SSL, monitoring'],
-];
-const addOns = [
-  ['Design Pack', '4 graphics or flyers a month'],
-  ['Social media', '2 platforms, 12–16 posts'],
-  ['Short video', '4 videos a month'],
-  ['Email newsletter', '1 a month'],
-  ['Google Ads', 'Set up and managed'],
-  ['One-off design', 'A flyer or a campaign'],
-];
+const svg = (name: string) =>
+  `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${icons[name]}</svg>`;
 ---
-<Base title="Services" description="Get Found: website, Google listing, reviews and a monthly report for small local businesses. Plus design, social, video, email and ads add-ons.">
+<Base title="Services" description="Websites, Google Business Profile and local SEO, reviews, social media, design, video, email and monthly reports for small local businesses.">
   <section class="page-top dots">
     <div class="wrap">
       <span class="tag reveal">Services</span>
-      <h1 class="reveal" data-delay="1">Get <span class="thin">Found.</span></h1>
-      <p class="muted sub reveal" data-delay="2">Everything below comes with every plan.</p>
+      <h1 class="reveal" data-delay="1">Everything to <span class="thin">get found.</span></h1>
+      <p class="muted sub reveal" data-delay="2">Pick one thing or let me handle all of it.</p>
     </div>
   </section>
 
-  <section class="section included-sec">
-    <div class="wrap">
-      <div class="tiles">
-        {included.map(([icon, title, line], i) => (
-          <div class="tile card reveal" data-delay={String(i % 4)} data-tilt="12">
-            <div class="ico lift"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" set:html={icons[icon as keyof typeof icons]} /></div>
-            <h3>{title}</h3>
-            <p class="muted">{line}</p>
-          </div>
-        ))}
-      </div>
+  <nav class="jump" aria-label="Service areas">
+    <div class="jump-inner">
+      {groups.map((g, i) => (
+        <a href={`#${g.id}`} data-jump={g.id} class={i === 0 ? 'active' : undefined}>
+          <span set:html={svg(g.icon)} />{g.short}
+        </a>
+      ))}
     </div>
-  </section>
+  </nav>
 
-  <section class="section on-dark dots">
-    <div class="wrap">
-      <div class="head reveal">
-        <h2>Add <span class="thin">more.</span></h2>
-        <p class="muted">Whenever you're ready. Mix and match.</p>
+  {groups.map((g, gi) => (
+    <section class={`group ${gi % 2 ? 'alt' : ''}`} id={g.id}>
+      <div class="wrap group-grid">
+        <div class="group-head reveal">
+          <div class="big-ico" data-tilt="18"><span class="lift" set:html={svg(g.icon)} /></div>
+          <span class="group-num">0{gi + 1}</span>
+          <h2>{g.title}<span class="thin">{g.thin}</span></h2>
+          <p class="muted">{g.line}</p>
+        </div>
+        <div class="items">
+          {g.items.map((item, i) => (
+            <div class="item card reveal" data-delay={String(i % 3)} data-tilt="10">
+              <div class="ico lift" set:html={svg(item.icon)} />
+              <div>
+                <h3>{item.title}</h3>
+                <p class="muted">{item.line}</p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
-      <div class="addons">
-        {addOns.map(([title, line], i) => (
-          <a class="addon reveal" data-delay={String(i % 3)} href={url('/pricing#builder')}>
-            <span><strong>{title}</strong><small>{line}</small></span>
-            <span class="plus">+</span>
-          </a>
-        ))}
-      </div>
-      <div class="actions reveal" style="margin-top: 40px;">
-        <a class="btn btn-blue" href={url('/pricing#builder')}>Build your plan <span class="arrow">→</span></a>
+    </section>
+  ))}
+
+  <section class="section faq-sec">
+    <div class="wrap faq-grid">
+      <h2 class="reveal">Good to <span class="thin">know.</span></h2>
+      <div class="faq reveal" data-delay="1">
+        <details>
+          <summary>Do I have to sign up for everything?</summary>
+          <p>No. Start with what you need most. Most businesses start with a website and their Google listing, then add more later.</p>
+        </details>
+        <details>
+          <summary>How soon will I see results?</summary>
+          <p>Usually around 90 days, and six months for real momentum. Fixing an unclaimed Google listing can be quicker.</p>
+        </details>
+        <details>
+          <summary>Who owns my website?</summary>
+          <p>You do. Your domain is in your name from day one. If you ever leave, you keep it, plus a working copy of your site.</p>
+        </details>
+        <details>
+          <summary>Can I make changes myself?</summary>
+          <p>Yes, anytime. And for anything bigger, I'll do it for you.</p>
+        </details>
+        <details>
+          <summary>Can you guarantee I'll be #1 on Google?</summary>
+          <p>No, and nobody honestly can. I guarantee the work, and you'll see the results in your report every month.</p>
+        </details>
       </div>
     </div>
   </section>
 
   <style>
-    .page-top { padding: 150px 0 40px; margin-top: -76px; }
+    .page-top { padding: 150px 0 56px; margin-top: -76px; }
     .sub { font-size: 1.25rem; margin-top: 20px; }
-    .included-sec { padding-top: 40px; }
-    .tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
-    .tile { padding: 26px; min-height: 200px; display: flex; flex-direction: column; }
-    .tile .ico { margin-bottom: auto; }
-    .tile h3 { margin-top: 28px; margin-bottom: 4px; }
-    .tile:hover .ico { background: var(--blue); color: var(--white); }
+
+    /* Sticky jump bar */
+    .jump { position: sticky; top: 92px; z-index: 40; padding: 0 14px; margin-bottom: 8px; }
+    .jump-inner {
+      max-width: 1120px; margin: 0 auto; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none;
+      padding: 6px; border-radius: 999px;
+      background: rgba(255, 255, 255, 0.78);
+      -webkit-backdrop-filter: blur(14px) saturate(1.4); backdrop-filter: blur(14px) saturate(1.4);
+      box-shadow: var(--shadow-1);
+    }
+    .jump-inner::-webkit-scrollbar { display: none; }
+    .jump a {
+      flex: none; display: inline-flex; align-items: center; gap: 8px;
+      padding: 9px 16px; border-radius: 999px; font-weight: 500; font-size: 0.92rem;
+      color: var(--charcoal); text-decoration: none; white-space: nowrap;
+      transition: background 0.25s, color 0.25s;
+    }
+    .jump a :global(svg) { width: 17px; height: 17px; color: var(--blue); transition: color 0.25s; }
+    .jump a:hover { background: var(--off-white); }
+    .jump a.active { background: var(--charcoal); color: var(--white); }
+    .jump a.active :global(svg) { color: var(--light-blue); }
+
+    /* Groups */
+    .group { padding: 96px 0; scroll-margin-top: 150px; }
+    .group.alt { background: var(--white); }
+    .group.alt .card { background: var(--off-white); box-shadow: none; }
+    .group.alt .card:hover { background: var(--white); box-shadow: var(--shadow-2); }
+    .group-grid { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 56px; align-items: start; }
+    .group-head { position: sticky; top: 170px; }
+    .big-ico {
+      width: 88px; height: 88px; border-radius: 26px; background: var(--charcoal); color: var(--light-blue);
+      display: grid; place-items: center; margin-bottom: 28px;
+      box-shadow: var(--shadow-3);
+      background-image: radial-gradient(circle at 30% 20%, rgba(142, 162, 255, 0.25), transparent 60%);
+    }
+    .big-ico :global(svg) { width: 38px; height: 38px; }
+    .group-num { display: block; font: 300 1.1rem var(--heading); color: var(--blue); margin-bottom: 10px; }
+    .group-head h2 { margin-bottom: 14px; }
+    .group-head p { font-size: 1.15rem; }
+    .items { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .item { display: flex; flex-direction: column; gap: 22px; padding: 24px; }
+    .item h3 { margin-bottom: 4px; }
+    .item:hover .ico { background: var(--blue); color: var(--white); }
     .ico { transition: background 0.3s, color 0.3s; }
 
-    .addons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-    .addon {
-      display: flex; justify-content: space-between; align-items: center; gap: 16px;
-      padding: 24px; border-radius: 22px; background: var(--charcoal-2);
-      text-decoration: none; color: var(--white);
-      transition: transform 0.35s var(--ease), background 0.3s;
-    }
-    .addon:hover { transform: translateY(-4px); background: #2f2f37; }
-    .addon strong { display: block; font: 600 1.2rem var(--heading); }
-    .addon small { color: #a9abb3; }
-    .plus {
-      flex: none; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center;
-      border: 1.5px solid #4a4a54; font: 300 1.5rem/1 var(--heading); color: var(--light-blue);
-      transition: transform 0.35s var(--ease), background 0.3s, color 0.3s, border-color 0.3s;
-    }
-    .addon:hover .plus { transform: rotate(90deg); background: var(--light-blue); border-color: var(--light-blue); color: var(--charcoal); }
+    .faq-sec { background: var(--off-white); }
+    .faq-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 48px; align-items: start; }
 
     @media (max-width: 900px) {
-      .tiles { grid-template-columns: 1fr 1fr; }
-      .addons { grid-template-columns: 1fr; }
-      .page-top { padding-top: 130px; }
+      .page-top { padding-top: 130px; padding-bottom: 40px; }
+      .jump { top: 84px; }
+      .group { padding: 64px 0; }
+      .group-grid, .faq-grid { grid-template-columns: 1fr; gap: 32px; }
+      .group-head { position: static; }
+      .big-ico { width: 72px; height: 72px; border-radius: 22px; margin-bottom: 20px; }
     }
-    @media (max-width: 480px) {
-      .tiles { gap: 12px; }
-      .tile { padding: 20px; min-height: 170px; }
-      .tile h3 { font-size: 1.1rem; }
+    @media (max-width: 560px) {
+      .items { grid-template-columns: 1fr; }
+      .item { flex-direction: row; align-items: flex-start; gap: 16px; padding: 20px; }
+      .item .ico { flex: none; }
     }
   </style>
+
+  <script>
+    // Highlight the jump-bar chip for the section on screen, and keep it scrolled into view.
+    const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('.jump a'));
+    const sections = links.map((a) => document.getElementById(a.dataset.jump!)).filter(Boolean) as HTMLElement[];
+    const setActive = (id: string) => {
+      links.forEach((a) => {
+        const on = a.dataset.jump === id;
+        if (on && !a.classList.contains('active')) {
+          a.parentElement?.scrollTo({ left: a.offsetLeft - 12, behavior: 'smooth' });
+        }
+        a.classList.toggle('active', on);
+      });
+    };
+    const onScroll = () => {
+      const mark = window.innerHeight * 0.35;
+      let current = sections[0]?.id;
+      for (const s of sections) if (s.getBoundingClientRect().top <= mark) current = s.id;
+      if (current) setActive(current);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  </script>
 </Base>
