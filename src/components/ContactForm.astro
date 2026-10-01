@@ -88,8 +88,10 @@ function labelFor(field: string): string {
     border-radius: 999px;
     font: 600 1rem var(--body, inherit);
     cursor: pointer;
+    box-shadow: 0 10px 24px -8px rgba(58, 86, 212, 0.7);
+    transition: transform 0.25s, background 0.2s;
   }
-  #scribe-contact-form button:hover { background: var(--blue-dark, #2e46b3); }
+  #scribe-contact-form button:hover { background: var(--blue-dark, #2e46b3); transform: translateY(-2px); }
   #scribe-contact-status { margin: 0; font-weight: 500; }
 </style>
 

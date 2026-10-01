@@ -1,69 +1,117 @@
 ---
 import Base from '../layouts/Base.astro';
 import { url } from '../lib/base';
+
+// Simple line icons (inline SVG paths, 24x24)
+const icons = {
+  site: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/>',
+  edit: '<path d="M4 20h4L19 9l-4-4L4 16z"/>',
+  pin: '<path d="M12 21s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/>',
+  list: '<path d="M8 6h13M8 12h13M8 18h13"/><circle cx="3.5" cy="6" r="1"/><circle cx="3.5" cy="12" r="1"/><circle cx="3.5" cy="18" r="1"/>',
+  star: '<path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z"/>',
+  chart: '<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
+  lock: '<rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+  globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 3 2.5 15 0 18M12 3c-2.5 3-2.5 15 0 18"/>',
+};
+const included = [
+  ['site', 'Website', '3–5 pages, built for phones'],
+  ['edit', 'Edit it yourself', 'Hours, photos, services'],
+  ['pin', 'Google listing', 'Claimed, verified, filled out'],
+  ['list', 'Directories', 'Your info right everywhere'],
+  ['star', 'Review link', 'Text it after every job'],
+  ['chart', 'Monthly report', 'See what changed'],
+  ['globe', 'Your domain', 'Registered in your name'],
+  ['lock', 'Hosting & security', 'Backups, SSL, monitoring'],
+];
+const addOns = [
+  ['Design Pack', '4 graphics or flyers a month'],
+  ['Social media', '2 platforms, 12–16 posts'],
+  ['Short video', '4 videos a month'],
+  ['Email newsletter', '1 a month'],
+  ['Google Ads', 'Set up and managed'],
+  ['One-off design', 'A flyer or a campaign'],
+];
 ---
-<Base title="Services" description="What's included in Weaver Digital's Get Found service, plus design, social media, video, email and Google Ads add-ons.">
-  <section class="page-head">
+<Base title="Services" description="Get Found: website, Google listing, reviews and a monthly report for small local businesses. Plus design, social, video, email and ads add-ons.">
+  <section class="page-top dots">
     <div class="wrap">
-      <span class="eyebrow">Services</span>
-      <h1>Get <span class="light">Found</span></h1>
-      <p class="lead">
-        The core service every customer gets. A website alone won't get you found. Your Google
-        listing and your reviews do a lot of the work, so they're included too.
-      </p>
+      <span class="tag reveal">Services</span>
+      <h1 class="reveal" data-delay="1">Get <span class="thin">Found.</span></h1>
+      <p class="muted sub reveal" data-delay="2">Everything below comes with every plan.</p>
     </div>
   </section>
 
-  <section class="section section-white">
+  <section class="section included-sec">
     <div class="wrap">
-      <div class="grid grid-2">
-        <div class="card">
-          <h3>Your website</h3>
-          <ul class="checks">
-            <li>A simple 3–5 page website that works on phones</li>
-            <li>Edit your own hours, photos and services anytime</li>
-            <li>Your domain name, registered in <strong>your</strong> name</li>
-            <li>Hosting, security, backups and SSL (the padlock in the address bar)</li>
-            <li>One change request a month that I'll do for you</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3>Getting found on Google</h3>
-          <ul class="checks">
-            <li>Google Business Profile claimed, verified and filled out</li>
-            <li>Your business info made consistent across the major directories</li>
-            <li>A review link you can text customers after a job</li>
-            <li>Regular Google posts to keep your listing active</li>
-            <li>A one-page report every month showing what changed</li>
-          </ul>
-        </div>
+      <div class="tiles">
+        {included.map(([icon, title, line], i) => (
+          <div class="tile card reveal" data-delay={String(i % 4)} data-tilt="12">
+            <div class="ico lift"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" set:html={icons[icon as keyof typeof icons]} /></div>
+            <h3>{title}</h3>
+            <p class="muted">{line}</p>
+          </div>
+        ))}
       </div>
-      <div class="actions"><a class="btn btn-blue" href={url('/pricing')}>See pricing</a></div>
     </div>
   </section>
 
-  <section class="section">
+  <section class="section on-dark dots">
     <div class="wrap">
-      <span class="eyebrow">Add-ons</span>
-      <h2>When you want more</h2>
-      <p class="lead">Add any of these to your plan whenever you're ready.</p>
-      <div class="grid grid-3" style="margin-top: 32px;">
-        <div class="card"><h3>Design Pack</h3><p class="muted">Four custom graphics or flyers a month for sales, new services or holidays.</p></div>
-        <div class="card"><h3>Social media</h3><p class="muted">I manage two platforms for you with 12–16 posts a month.</p></div>
-        <div class="card"><h3>Short-form video</h3><p class="muted">Four short videos a month for Reels, TikTok or Shorts.</p></div>
-        <div class="card"><h3>Email newsletter</h3><p class="muted">One email a month to keep past customers coming back.</p></div>
-        <div class="card"><h3>Google Ads</h3><p class="muted">Set up and managed ads so you show up at the top of search results.</p></div>
-        <div class="card"><h3>One-off design</h3><p class="muted">A single flyer or graphic, or a full seasonal or event campaign.</p></div>
+      <div class="head reveal">
+        <h2>Add <span class="thin">more.</span></h2>
+        <p class="muted">Whenever you're ready. Mix and match.</p>
       </div>
-      <div class="actions"><a class="btn btn-charcoal" href={url('/pricing#add-ons')}>Add-on prices</a></div>
+      <div class="addons">
+        {addOns.map(([title, line], i) => (
+          <a class="addon reveal" data-delay={String(i % 3)} href={url('/pricing#builder')}>
+            <span><strong>{title}</strong><small>{line}</small></span>
+            <span class="plus">+</span>
+          </a>
+        ))}
+      </div>
+      <div class="actions reveal" style="margin-top: 40px;">
+        <a class="btn btn-blue" href={url('/pricing#builder')}>Build your plan <span class="arrow">→</span></a>
+      </div>
     </div>
   </section>
 
-  <section class="section band-dark">
-    <div class="wrap center narrow">
-      <h2>Not sure what you need?</h2>
-      <p class="lead">Tell me about your business and I'll tell you honestly what would help.</p>
-      <div class="actions"><a class="btn btn-blue" href={url('/contact')}>Get in touch</a></div>
-    </div>
-  </section>
+  <style>
+    .page-top { padding: 150px 0 40px; margin-top: -76px; }
+    .sub { font-size: 1.25rem; margin-top: 20px; }
+    .included-sec { padding-top: 40px; }
+    .tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+    .tile { padding: 26px; min-height: 200px; display: flex; flex-direction: column; }
+    .tile .ico { margin-bottom: auto; }
+    .tile h3 { margin-top: 28px; margin-bottom: 4px; }
+    .tile:hover .ico { background: var(--blue); color: var(--white); }
+    .ico { transition: background 0.3s, color 0.3s; }
+
+    .addons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .addon {
+      display: flex; justify-content: space-between; align-items: center; gap: 16px;
+      padding: 24px; border-radius: 22px; background: var(--charcoal-2);
+      text-decoration: none; color: var(--white);
+      transition: transform 0.35s var(--ease), background 0.3s;
+    }
+    .addon:hover { transform: translateY(-4px); background: #2f2f37; }
+    .addon strong { display: block; font: 600 1.2rem var(--heading); }
+    .addon small { color: #a9abb3; }
+    .plus {
+      flex: none; width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center;
+      border: 1.5px solid #4a4a54; font: 300 1.5rem/1 var(--heading); color: var(--light-blue);
+      transition: transform 0.35s var(--ease), background 0.3s, color 0.3s, border-color 0.3s;
+    }
+    .addon:hover .plus { transform: rotate(90deg); background: var(--light-blue); border-color: var(--light-blue); color: var(--charcoal); }
+
+    @media (max-width: 900px) {
+      .tiles { grid-template-columns: 1fr 1fr; }
+      .addons { grid-template-columns: 1fr; }
+      .page-top { padding-top: 130px; }
+    }
+    @media (max-width: 480px) {
+      .tiles { gap: 12px; }
+      .tile { padding: 20px; min-height: 170px; }
+      .tile h3 { font-size: 1.1rem; }
+    }
+  </style>
 </Base>

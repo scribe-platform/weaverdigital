@@ -2,143 +2,243 @@
 import Base from '../layouts/Base.astro';
 import { url } from '../lib/base';
 
-const addOns = [
-  ['Design Pack: 4 custom graphics or flyers', '$250/mo'],
-  ['Social media management: 2 platforms, 12–16 posts', '$450/mo'],
-  ['Extra social platform', '$250/mo'],
-  ['Short-form video: 4 per month', '$450/mo'],
-  ['Email newsletter: 1 per month', '$250/mo'],
-  ['Google Ads management', '$450/mo + ad spend'],
+const monthly = [
+  ['design', 'Design Pack', '4 graphics or flyers', 250],
+  ['social', 'Social media', '2 platforms, 12–16 posts', 450],
+  ['social2', 'Extra social platform', 'One more platform', 250],
+  ['video', 'Short video', '4 videos a month', 450],
+  ['email', 'Email newsletter', '1 a month', 250],
+  ['ads', 'Google Ads', 'Plus your ad spend', 450],
+] as const;
+const oneOff = [
   ['One-off flyer or graphic', '$150'],
   ['Event or seasonal campaign', '$600'],
-  ['Extra change requests', '$125/hr'],
+  ['Extra changes', '$125/hr'],
+];
+const terms = [
+  ['Locked in', 'Start at $99, stay at $99.'],
+  ['6 months, then monthly', 'Cancel anytime after with 30 days\' notice.'],
+  ['30-day guarantee', 'Don\'t love your site? Full refund.'],
 ];
 ---
-<Base title="Pricing" description="Weaver Digital's Get Found service is $99/month with no setup fee for the first 10 founding customers.">
-  <section class="page-head">
+<Base title="Pricing" description="Get Found is $99/month with no setup fee for Weaver Digital's first 10 founding customers. Build your plan with add-ons.">
+  <section class="page-top dots">
     <div class="wrap">
-      <span class="eyebrow">Pricing</span>
-      <h1>One simple <span class="light">price</span></h1>
-      <p class="lead">Everything in Get Found for one monthly price. No surprise bills.</p>
+      <span class="tag reveal">Pricing</span>
+      <h1 class="reveal" data-delay="1">Simple <span class="thin">pricing.</span></h1>
+      <p class="muted sub reveal" data-delay="2">Pick what you need. Watch the total.</p>
     </div>
   </section>
 
-  <section class="section section-white">
-    <div class="wrap price-layout">
-      <div class="price-card">
-        <span class="badge">Founding rate · first 10 customers</span>
-        <h2>Get Found</h2>
-        <p class="amount">$99<span>/month</span></p>
-        <p class="setup">$0 setup fee</p>
-        <ul class="checks">
-          <li>Website you can edit yourself</li>
-          <li>Domain, hosting, security and backups</li>
-          <li>Google Business Profile set up and managed</li>
-          <li>Directory listings made consistent</li>
-          <li>Review request link</li>
-          <li>Monthly report</li>
-          <li>One change request a month</li>
-        </ul>
-        <a class="btn btn-blue" href={url('/contact')}>Claim a founding spot</a>
+  <section class="section builder-sec" id="builder">
+    <div class="wrap builder">
+      <div class="picks">
+        <div class="base card reveal">
+          <div>
+            <span class="badge">Founding rate · first 10</span>
+            <h3>Get Found</h3>
+            <p class="muted">Website, Google listing, reviews, report. <a href={url('/services')}>What's included</a></p>
+          </div>
+          <div class="base-price"><strong>$99</strong><small>/mo</small><span class="always">Included</span></div>
+        </div>
+
+        <p class="picks-label reveal">Add to your plan</p>
+        <div class="toggles">
+          {monthly.map(([id, title, line, price], i) => (
+            <label class="toggle reveal" data-delay={String(i % 3)}>
+              <input type="checkbox" value={price} data-id={id} />
+              <span class="toggle-box" aria-hidden="true"></span>
+              <span class="toggle-text"><strong>{title}</strong><small>{line}</small></span>
+              <span class="toggle-price">+${price}<small>/mo</small></span>
+            </label>
+          ))}
+        </div>
       </div>
-      <div class="price-notes">
-        <h3>Your price never goes up</h3>
-        <p class="muted">
-          The founding rate is for my first 10 customers. After that, the price goes up for new
-          customers, but if you start at $99, you stay at $99.
-        </p>
-        <h3>Six-month start, then month to month</h3>
-        <p class="muted">
-          Plans start with a six-month term. Google takes time, and six months is enough to
-          see real results. After that it's month to month with 30 days' notice.
-        </p>
-        <h3>My guarantees</h3>
-        <ul class="checks">
-          <li><strong>30-day build guarantee.</strong> If you don't like your site, you get a full refund.</li>
-          <li><strong>Six-month promise.</strong> If things haven't improved after six months, you can cancel with no penalty and keep your site.</li>
-        </ul>
-        <p class="muted small">
-          I won't promise you the #1 spot on Google. Nobody can honestly promise that. What I
-          promise is the work, and a report every month so you can see what it's doing.
-        </p>
+
+      <aside class="total-wrap">
+        <div class="total reveal" data-delay="1" data-tilt="6">
+          <p class="total-label">Your monthly total</p>
+          <p class="total-num"><span>$</span><span id="total">99</span><small>/mo</small></p>
+          <p class="total-note" id="total-note">Get Found only</p>
+          <ul class="total-terms">
+            <li>$0 setup fee</li>
+            <li>Price locked for as long as you stay</li>
+          </ul>
+          <a class="btn btn-blue" href={url('/contact')} id="total-cta">Start with this plan <span class="arrow">→</span></a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section terms-sec">
+    <div class="wrap">
+      <div class="terms">
+        {terms.map(([title, line], i) => (
+          <div class="term card reveal" data-delay={String(i)} data-tilt="10">
+            <span class="term-num lift">0{i + 1}</span>
+            <h3>{title}</h3>
+            <p class="muted">{line}</p>
+          </div>
+        ))}
+      </div>
+      <div class="oneoff reveal">
+        <strong>One-time extras</strong>
+        {oneOff.map(([title, price]) => <span>{title} <b>{price}</b></span>)}
       </div>
     </div>
   </section>
 
-  <section class="section" id="add-ons">
-    <div class="wrap narrow">
-      <span class="eyebrow">Add-ons</span>
-      <h2>Extras, whenever you want them</h2>
-      <div class="table-wrap" style="margin-top: 24px;">
-        <table>
-          <thead><tr><th>Add-on</th><th>Price</th></tr></thead>
-          <tbody>
-            {addOns.map(([name, price]) => (
-              <tr><td>{name}</td><td class="price">{price}</td></tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <section class="section section-white">
-    <div class="wrap narrow">
-      <span class="eyebrow">Questions</span>
-      <h2>Good to know</h2>
-      <div style="margin-top: 24px;">
+  <section class="section faq-sec">
+    <div class="wrap faq-grid">
+      <h2 class="reveal">Good to <span class="thin">know.</span></h2>
+      <div class="faq reveal" data-delay="1">
         <details>
-          <summary>How long until I see results?</summary>
-          <p>Usually about 90 days before you notice a real change, and around six months for steady momentum. If Google already lists your business but nobody has claimed it, fixing that can show results sooner.</p>
+          <summary>How soon will I see results?</summary>
+          <p>Usually around 90 days, and six months for real momentum. Fixing an unclaimed Google listing can be quicker.</p>
         </details>
         <details>
-          <summary>Who owns my domain and website?</summary>
-          <p>You do. Your domain is registered in your name from day one. If you ever leave, you keep the domain, a working copy of your site and your content, plus 30 days of hosting to move it.</p>
+          <summary>Who owns my website?</summary>
+          <p>You do. Your domain is in your name from day one. If you leave, you keep it, plus a working copy of your site.</p>
         </details>
         <details>
           <summary>Can I make changes myself?</summary>
-          <p>Yes. You can update your hours, photos and services yourself anytime. For anything bigger, you get one change request a month that I'll do for you.</p>
+          <p>Yes, anytime. And once a month I'll make a bigger change for you.</p>
+        </details>
+        <details>
+          <summary>Can you guarantee I'll be #1 on Google?</summary>
+          <p>No, and nobody honestly can. I guarantee the work, and you'll see the results in your report every month. If nothing has improved after six months, you can cancel with no penalty and keep your site.</p>
         </details>
         <details>
           <summary>How do I pay?</summary>
-          <p>Your card is billed automatically each month. No invoices to keep track of.</p>
-        </details>
-        <details>
-          <summary>What if I want to cancel early?</summary>
-          <p>After the first six months you can cancel anytime with 30 days' notice. My 30-day build guarantee and six-month promise both still apply.</p>
+          <p>Your card is billed automatically each month. Nothing to keep track of.</p>
         </details>
       </div>
     </div>
   </section>
 
   <style>
-    .price-layout { display: grid; grid-template-columns: 1fr 1.1fr; gap: 56px; align-items: start; }
-    .price-card {
-      background: var(--charcoal);
-      color: var(--white);
-      border-radius: 24px;
-      padding: 36px;
+    .page-top { padding: 150px 0 20px; margin-top: -76px; }
+    .sub { font-size: 1.25rem; margin-top: 20px; }
+    .builder-sec { padding-top: 48px; }
+    .builder { display: grid; grid-template-columns: 1.4fr 1fr; gap: 32px; align-items: start; }
+
+    .base { display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 28px; box-shadow: 0 0 0 2px var(--blue), var(--shadow-2); }
+    .base h3 { font-size: 1.6rem; margin: 10px 0 4px; }
+    .badge { font-size: 0.78rem; font-weight: 600; background: var(--blue-tint); color: var(--blue); padding: 5px 11px; border-radius: 999px; }
+    .base-price { text-align: right; flex: none; }
+    .base-price strong { font: 600 2.4rem var(--heading); letter-spacing: -0.03em; }
+    .base-price small { color: var(--gray); }
+    .always { display: block; font-size: 0.8rem; font-weight: 600; color: var(--blue); }
+
+    .picks-label { font-weight: 600; margin: 36px 0 14px 4px; }
+    .toggles { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .toggle {
+      position: relative; display: grid; grid-template-columns: auto 1fr; grid-template-rows: auto auto; gap: 4px 14px;
+      align-items: start; padding: 20px; border-radius: 20px; background: var(--white); cursor: pointer;
+      box-shadow: var(--shadow-1);
+      transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
     }
-    .price-card .checks { margin: 24px 0 28px; }
-    .price-card .checks li::before { border-color: var(--light-blue); }
-    .badge {
-      display: inline-block;
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--charcoal);
-      background: var(--light-blue);
-      padding: 5px 12px;
-      border-radius: 999px;
-      margin-bottom: 18px;
+    .toggle:hover { transform: translateY(-3px); box-shadow: var(--shadow-2); }
+    .toggle input { position: absolute; opacity: 0; pointer-events: none; }
+    .toggle-box {
+      grid-row: span 2; width: 26px; height: 26px; border-radius: 8px; margin-top: 2px;
+      box-shadow: inset 0 0 0 2px var(--line); position: relative;
+      transition: background 0.25s, box-shadow 0.25s;
     }
-    .amount { font: 600 3.6rem/1 var(--heading); letter-spacing: -0.03em; margin: 8px 0; }
-    .amount span { font-weight: 300; font-size: 1.4rem; color: var(--light-blue); letter-spacing: 0; }
-    .setup { color: #c9cad0; margin: 0; }
-    .price-notes h3 { margin-top: 8px; }
-    .price-notes h3 + p { margin-bottom: 28px; }
-    @media (max-width: 860px) {
-      .price-layout { grid-template-columns: 1fr; gap: 40px; }
-      .price-card { padding: 28px; }
+    .toggle-box::after {
+      content: ''; position: absolute; left: 8px; top: 4px; width: 7px; height: 12px;
+      border: solid var(--white); border-width: 0 2.5px 2.5px 0; transform: rotate(45deg) scale(0);
+      transition: transform 0.25s var(--ease);
+    }
+    .toggle input:checked ~ .toggle-box { background: var(--blue); box-shadow: none; }
+    .toggle input:checked ~ .toggle-box::after { transform: rotate(45deg) scale(1); }
+    .toggle input:focus-visible ~ .toggle-box { outline: 2px solid var(--blue); outline-offset: 3px; }
+    .toggle:has(input:checked) { box-shadow: 0 0 0 2px var(--blue), var(--shadow-2); }
+    .toggle-text strong { display: block; font: 600 1.1rem var(--heading); }
+    .toggle-text small { color: var(--gray); }
+    .toggle-price { grid-column: 2; font-weight: 600; color: var(--blue); }
+    .toggle-price small { color: var(--gray); font-weight: 400; }
+
+    .total-wrap { position: sticky; top: 110px; }
+    .total {
+      background: var(--charcoal); color: var(--white); border-radius: 30px; padding: 34px;
+      box-shadow: var(--shadow-3);
+      background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+      background-size: 22px 22px;
+    }
+    .total-label { color: #a9abb3; font-weight: 500; }
+    .total-num { font: 600 clamp(4rem, 8vw, 5.6rem)/1 var(--heading); letter-spacing: -0.05em; margin: 10px 0 6px; }
+    .total-num span:first-child { font-weight: 300; font-size: 0.5em; vertical-align: top; color: var(--light-blue); }
+    .total-num small { font: 300 1.3rem var(--heading); color: var(--light-blue); letter-spacing: 0; }
+    .total-note { color: #a9abb3; min-height: 1.5em; font-size: 0.95rem; }
+    .total-terms { list-style: none; padding: 20px 0; margin: 20px 0 24px; border-top: 1px solid #33333a; border-bottom: 1px solid #33333a; display: grid; gap: 8px; }
+    .total-terms li::before { content: '✓'; color: var(--light-blue); margin-right: 10px; font-weight: 600; }
+    .total .btn { width: 100%; justify-content: center; }
+    .bump { animation: bump 0.4s var(--ease); }
+    @keyframes bump { 40% { transform: translateY(-6px) scale(1.04); } }
+
+    .terms-sec { padding-top: 40px; }
+    .terms { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .term { padding: 30px; }
+    .term-num { display: block; font: 300 2.4rem/1 var(--heading); color: var(--blue); margin-bottom: 26px; }
+    .term h3 { margin-bottom: 6px; }
+    .oneoff { display: flex; flex-wrap: wrap; gap: 10px 26px; align-items: center; margin-top: 28px; padding: 20px 26px; border-radius: 20px; background: var(--white); box-shadow: var(--shadow-1); font-size: 0.95rem; }
+    .oneoff span { color: var(--gray); }
+    .oneoff b { color: var(--charcoal); margin-left: 4px; }
+
+    .faq-sec { padding-top: 40px; }
+    .faq-grid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 48px; align-items: start; }
+
+    @media (max-width: 900px) {
+      .page-top { padding-top: 130px; }
+      .builder, .faq-grid { grid-template-columns: 1fr; }
+      .total-wrap { position: static; }
+      .terms { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      .toggles { grid-template-columns: 1fr; }
+      .base { flex-direction: column; align-items: flex-start; }
+      .base-price { text-align: left; }
     }
   </style>
+
+  <script>
+    const boxes = Array.from(document.querySelectorAll<HTMLInputElement>('.toggle input'));
+    const totalEl = document.getElementById('total');
+    const noteEl = document.getElementById('total-note');
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let shown = 99;
+
+    function animateTo(target: number) {
+      if (!totalEl) return;
+      if (reduce) { totalEl.textContent = String(target); shown = target; return; }
+      const start = shown;
+      const t0 = performance.now();
+      const step = (now: number) => {
+        const k = Math.min(1, (now - t0) / 450);
+        const eased = 1 - Math.pow(1 - k, 3);
+        shown = Math.round(start + (target - start) * eased);
+        totalEl.textContent = shown.toLocaleString('en-US');
+        if (k < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+      // Make sure the final number lands even if animation frames are paused.
+      setTimeout(() => { if (shown !== target) { shown = target; totalEl.textContent = target.toLocaleString('en-US'); } }, 600);
+      totalEl.parentElement?.classList.remove('bump');
+      void totalEl.parentElement?.offsetWidth;
+      totalEl.parentElement?.classList.add('bump');
+    }
+
+    function update() {
+      const picked = boxes.filter((b) => b.checked);
+      const sum = 99 + picked.reduce((s, b) => s + Number(b.value), 0);
+      const names = picked.map((b) => b.closest('label')?.querySelector('strong')?.textContent ?? '');
+      if (noteEl) {
+        noteEl.textContent = names.length ? `Get Found + ${names.join(', ')}` : 'Get Found only';
+        if (picked.some((b) => b.dataset.id === 'ads')) noteEl.textContent += ' (plus ad spend)';
+      }
+      animateTo(sum);
+    }
+    boxes.forEach((b) => b.addEventListener('change', update));
+  </script>
 </Base>

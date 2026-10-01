@@ -7,9 +7,10 @@ export interface Props {
   title: string;
   siteName?: string;
   description?: string;
+  footerCta?: boolean;
 }
 
-const { title, siteName = SITE_NAME, description } = Astro.props;
+const { title, siteName = SITE_NAME, description, footerCta = true } = Astro.props;
 const fullTitle = title === 'Home' ? `${siteName} · Get found online` : `${title} · ${siteName}`;
 const path = Astro.url.pathname.replace(import.meta.env.BASE_URL.replace(/\/$/, ''), '') || '/';
 const nav = [
@@ -34,16 +35,16 @@ const isCurrent = (href: string) => path.replace(/\/$/, '') === href;
   </head>
   <body>
     <header class="site-header">
-      <div class="wrap header-inner">
+      <div class="nav-pill">
         <a href={url('/')} class="logo" aria-label={`${siteName} home`}>
-          <img src={url('/brand/logo.png')} alt={siteName} width="180" height="50" />
+          <img src={url('/brand/logo.png')} alt={siteName} width="150" height="42" />
         </a>
-        <button class="menu-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
+        <button class="menu-toggle" aria-expanded="false" aria-controls="site-nav" aria-label="Menu"><span></span></button>
         <nav id="site-nav">
           {nav.map((item) => (
             <a href={url(item.href)} aria-current={isCurrent(item.href) ? 'page' : undefined}>{item.label}</a>
           ))}
-          <a href={url('/contact')} class="btn btn-blue nav-cta">Get in touch</a>
+          <a href={url('/contact')} class="btn btn-blue">Let's talk</a>
         </nav>
       </div>
     </header>
@@ -51,31 +52,26 @@ const isCurrent = (href: string) => path.replace(/\/$/, '') === href;
       <slot />
     </main>
     <footer class="site-footer">
-      <div class="wrap footer-inner">
-        <div>
-          <img src={url('/brand/logo-dark.png')} alt={siteName} width="180" height="50" />
-          <p>Websites and Google listings for small local businesses.</p>
-        </div>
-        <nav class="footer-nav">
-          {nav.map((item) => <a href={url(item.href)}>{item.label}</a>)}
-          <a href={url('/contact')}>Contact</a>
-        </nav>
-        <div>
-          <a href="mailto:ashley@weaverdigital.io">ashley@weaverdigital.io</a>
+      <div class="wrap">
+        {footerCta && (
+          <div class="footer-cta">
+            <h2>Ready to be <span class="thin" style="color: var(--light-blue)">found?</span></h2>
+            <a class="btn btn-blue" href={url('/contact')}>Let's talk <span class="arrow">→</span></a>
+          </div>
+        )}
+        <div class="footer-row">
+          <img src={url('/brand/logo-dark.png')} alt={siteName} width="140" height="39" />
+          <nav>
+            {nav.map((item) => <a href={url(item.href)}>{item.label}</a>)}
+            <a href={url('/contact')}>Contact</a>
+            <a href="mailto:ashley@weaverdigital.io">ashley@weaverdigital.io</a>
+          </nav>
+          <span>&copy; {new Date().getFullYear()} {siteName}</span>
         </div>
       </div>
-      <p class="wrap copyright">&copy; {new Date().getFullYear()} {siteName}</p>
     </footer>
-    <script is:inline>
-      (function () {
-        var btn = document.querySelector('.menu-toggle');
-        var nav = document.getElementById('site-nav');
-        if (!btn || !nav) return;
-        btn.addEventListener('click', function () {
-          var open = nav.classList.toggle('open');
-          btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-        });
-      })();
+    <script>
+      import '../scripts/site.ts';
     </script>
   </body>
 </html>

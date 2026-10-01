@@ -2,22 +2,23 @@
 import Base from '../layouts/Base.astro';
 import ContactForm from '../components/ContactForm.astro';
 import { CONTACT_COLLECTION, CONTACT_FIELDS, SITE_SLUG, TURNSTILE_SITE_KEY } from '../site-config';
----
-<Base title="Contact" description="Get in touch with Weaver Digital about a website and Google listing for your business.">
-  <section class="page-head">
-    <div class="wrap">
-      <span class="eyebrow">Contact</span>
-      <h1>Let's <span class="light">talk</span></h1>
-      <p class="lead">
-        Tell me about your business and what you're hoping for. No commitment and no pressure. I'll
-        get back to you within a day or two.
-      </p>
-    </div>
-  </section>
 
-  <section class="section section-white">
-    <div class="wrap contact-layout">
-      <div class="card form-card">
+const needs = ['A website', 'Google listing', 'Both', 'Social media', 'Not sure yet'];
+---
+<Base title="Contact" description="Get in touch with Weaver Digital about getting your business found online." footerCta={false}>
+  <section class="page-top dots">
+    <div class="wrap contact-grid">
+      <div>
+        <span class="tag reveal">Contact</span>
+        <h1 class="reveal" data-delay="1">Let's <span class="thin">talk.</span></h1>
+        <p class="muted sub reveal" data-delay="2">No pressure. I'll reply within a day or two.</p>
+        <a class="mail reveal" data-delay="3" href="mailto:ashley@weaverdigital.io">ashley@weaverdigital.io <span>→</span></a>
+      </div>
+      <div class="form-card reveal" data-delay="1">
+        <p class="need-label">What do you need?</p>
+        <div class="needs" role="group" aria-label="What do you need?">
+          {needs.map((n) => <button type="button" class="need" aria-pressed="false">{n}</button>)}
+        </div>
         <ContactForm
           site={SITE_SLUG}
           collection={CONTACT_COLLECTION}
@@ -25,23 +26,50 @@ import { CONTACT_COLLECTION, CONTACT_FIELDS, SITE_SLUG, TURNSTILE_SITE_KEY } fro
           fields={CONTACT_FIELDS.length > 0 ? CONTACT_FIELDS : undefined}
         />
       </div>
-      <div>
-        <h3>Prefer email?</h3>
-        <p><a href="mailto:ashley@weaverdigital.io">ashley@weaverdigital.io</a></p>
-        <h3 style="margin-top: 32px;">What happens next</h3>
-        <ul class="checks">
-          <li>I'll look up your business online to see where things stand</li>
-          <li>We'll have a quick call about what you need</li>
-          <li>I'll build a preview of your site for you to see before you decide</li>
-        </ul>
-      </div>
     </div>
   </section>
 
   <style>
-    .contact-layout { display: grid; grid-template-columns: 1.3fr 1fr; gap: 48px; align-items: start; }
-    .form-card { background: var(--white) !important; }
-    @media (max-width: 860px) { .contact-layout { grid-template-columns: 1fr; } }
-    @media (max-width: 420px) { .form-card { padding: 18px; } }
+    .page-top { padding: 160px 0 110px; margin-top: -76px; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 56px; align-items: start; }
+    .sub { font-size: 1.25rem; margin: 20px 0 32px; }
+    .mail {
+      display: inline-flex; gap: 10px; align-items: center;
+      font: 600 1.25rem var(--heading); color: var(--charcoal); text-decoration: none;
+      border-bottom: 2px solid var(--blue); padding-bottom: 4px;
+    }
+    .mail span { color: var(--blue); transition: transform 0.25s var(--ease); }
+    .mail:hover span { transform: translateX(4px); }
+    .form-card { background: var(--white); border-radius: 30px; padding: 34px; box-shadow: var(--shadow-3); }
+    .need-label { font-weight: 600; font-size: 0.95rem; margin-bottom: 12px; }
+    .needs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+    .need {
+      border: 0; cursor: pointer; padding: 10px 16px; border-radius: 999px; font-weight: 500; font-size: 0.92rem;
+      background: var(--off-white); box-shadow: inset 0 0 0 1.5px var(--line);
+      transition: background 0.2s, color 0.2s, transform 0.25s var(--ease);
+    }
+    .need:hover { transform: translateY(-2px); }
+    .need[aria-pressed='true'] { background: var(--charcoal); color: var(--white); box-shadow: none; }
+    @media (max-width: 900px) {
+      .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+      .page-top { padding-top: 130px; padding-bottom: 80px; }
+    }
+    @media (max-width: 480px) { .form-card { padding: 22px 18px; border-radius: 24px; } }
   </style>
+
+  <script>
+    // Chips add "Interested in: ..." to the top of the message.
+    const chips = Array.from(document.querySelectorAll<HTMLButtonElement>('.need'));
+    const message = document.querySelector<HTMLTextAreaElement>('#scribe-contact-form textarea[name="message"]');
+    const PREFIX = 'Interested in: ';
+    chips.forEach((chip) => {
+      chip.addEventListener('click', () => {
+        chip.setAttribute('aria-pressed', String(chip.getAttribute('aria-pressed') !== 'true'));
+        if (!message) return;
+        const picked = chips.filter((c) => c.getAttribute('aria-pressed') === 'true').map((c) => c.textContent);
+        const rest = message.value.startsWith(PREFIX) ? message.value.split('\n').slice(1).join('\n').replace(/^\n/, '') : message.value;
+        message.value = picked.length ? `${PREFIX}${picked.join(', ')}\n\n${rest}` : rest;
+      });
+    });
+  </script>
 </Base>
