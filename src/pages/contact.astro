@@ -3,13 +3,45 @@ import Base from '../layouts/Base.astro';
 import ContactForm from '../components/ContactForm.astro';
 import { CONTACT_COLLECTION, CONTACT_FIELDS, SITE_SLUG, TURNSTILE_SITE_KEY } from '../site-config';
 ---
-<Base title="Contact">
-  <h1>Tell us about your lawn</h1>
-  <p>Fill out the form below and we'll follow up to schedule your free quote. No commitment required.</p>
-  <ContactForm
-    site={SITE_SLUG}
-    collection={CONTACT_COLLECTION}
-    turnstileSiteKey={TURNSTILE_SITE_KEY}
-    fields={CONTACT_FIELDS.length > 0 ? CONTACT_FIELDS : undefined}
-  />
+<Base title="Contact" description="Get in touch with Weaver Digital about a website and Google listing for your business.">
+  <section class="page-head">
+    <div class="wrap">
+      <span class="eyebrow">Contact</span>
+      <h1>Let's <span class="light">talk</span></h1>
+      <p class="lead">
+        Tell me about your business and what you're hoping for. No commitment and no pressure. I'll
+        get back to you within a day or two.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section-white">
+    <div class="wrap contact-layout">
+      <div class="card form-card">
+        <ContactForm
+          site={SITE_SLUG}
+          collection={CONTACT_COLLECTION}
+          turnstileSiteKey={TURNSTILE_SITE_KEY}
+          fields={CONTACT_FIELDS.length > 0 ? CONTACT_FIELDS : undefined}
+        />
+      </div>
+      <div>
+        <h3>Prefer email?</h3>
+        <p><a href="mailto:ashley@weaverdigital.io">ashley@weaverdigital.io</a></p>
+        <h3 style="margin-top: 32px;">What happens next</h3>
+        <ul class="checks">
+          <li>I'll look up your business online to see where things stand</li>
+          <li>We'll have a quick call about what you need</li>
+          <li>I'll build a preview of your site for you to see before you decide</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .contact-layout { display: grid; grid-template-columns: 1.3fr 1fr; gap: 48px; align-items: start; }
+    .form-card { background: var(--white) !important; }
+    @media (max-width: 860px) { .contact-layout { grid-template-columns: 1fr; } }
+    @media (max-width: 420px) { .form-card { padding: 18px; } }
+  </style>
 </Base>

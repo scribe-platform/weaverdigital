@@ -1,0 +1,69 @@
+---
+import Base from '../layouts/Base.astro';
+import { url } from '../lib/base';
+---
+<Base title="Services" description="What's included in Weaver Digital's Get Found service, plus design, social media, video, email and Google Ads add-ons.">
+  <section class="page-head">
+    <div class="wrap">
+      <span class="eyebrow">Services</span>
+      <h1>Get <span class="light">Found</span></h1>
+      <p class="lead">
+        The core service every customer gets. A website alone won't get you found. Your Google
+        listing and your reviews do a lot of the work, so they're included too.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section-white">
+    <div class="wrap">
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>Your website</h3>
+          <ul class="checks">
+            <li>A simple 3–5 page website that works on phones</li>
+            <li>Edit your own hours, photos and services anytime</li>
+            <li>Your domain name, registered in <strong>your</strong> name</li>
+            <li>Hosting, security, backups and SSL (the padlock in the address bar)</li>
+            <li>One change request a month that I'll do for you</li>
+          </ul>
+        </div>
+        <div class="card">
+          <h3>Getting found on Google</h3>
+          <ul class="checks">
+            <li>Google Business Profile claimed, verified and filled out</li>
+            <li>Your business info made consistent across the major directories</li>
+            <li>A review link you can text customers after a job</li>
+            <li>Regular Google posts to keep your listing active</li>
+            <li>A one-page report every month showing what changed</li>
+          </ul>
+        </div>
+      </div>
+      <div class="actions"><a class="btn btn-blue" href={url('/pricing')}>See pricing</a></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <span class="eyebrow">Add-ons</span>
+      <h2>When you want more</h2>
+      <p class="lead">Add any of these to your plan whenever you're ready.</p>
+      <div class="grid grid-3" style="margin-top: 32px;">
+        <div class="card"><h3>Design Pack</h3><p class="muted">Four custom graphics or flyers a month for sales, new services or holidays.</p></div>
+        <div class="card"><h3>Social media</h3><p class="muted">I manage two platforms for you with 12–16 posts a month.</p></div>
+        <div class="card"><h3>Short-form video</h3><p class="muted">Four short videos a month for Reels, TikTok or Shorts.</p></div>
+        <div class="card"><h3>Email newsletter</h3><p class="muted">One email a month to keep past customers coming back.</p></div>
+        <div class="card"><h3>Google Ads</h3><p class="muted">Set up and managed ads so you show up at the top of search results.</p></div>
+        <div class="card"><h3>One-off design</h3><p class="muted">A single flyer or graphic, or a full seasonal or event campaign.</p></div>
+      </div>
+      <div class="actions"><a class="btn btn-charcoal" href={url('/pricing#add-ons')}>Add-on prices</a></div>
+    </div>
+  </section>
+
+  <section class="section band-dark">
+    <div class="wrap center narrow">
+      <h2>Not sure what you need?</h2>
+      <p class="lead">Tell me about your business and I'll tell you honestly what would help.</p>
+      <div class="actions"><a class="btn btn-blue" href={url('/contact')}>Get in touch</a></div>
+    </div>
+  </section>
+</Base>

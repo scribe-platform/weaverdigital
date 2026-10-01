@@ -1,94 +1,149 @@
 ---
 import Base from '../layouts/Base.astro';
 import { url } from '../lib/base';
-import { getCollection, type CollectionEntry } from 'astro:content';
-import {
-  CATALOG_ACTIVE_FIELD,
-  CATALOG_COLLECTION,
-  CATALOG_LABEL,
-  CATALOG_PRICE_FIELD,
-  CATALOG_SORT_FIELD,
-  CATALOG_TITLE_FIELD,
-  SITE_NAME,
-} from '../site-config';
-import { formatPrice } from '../lib/catalog';
-
-let featured: CollectionEntry<any>[] = [];
-if (CATALOG_COLLECTION) {
-  const entries = (await getCollection(CATALOG_COLLECTION as any)) as CollectionEntry<any>[];
-  const visible = CATALOG_ACTIVE_FIELD ? entries.filter((e) => e.data[CATALOG_ACTIVE_FIELD] !== false) : entries;
-  const sorted = CATALOG_SORT_FIELD
-    ? [...visible].sort((a, b) => (a.data[CATALOG_SORT_FIELD] < b.data[CATALOG_SORT_FIELD] ? -1 : 1))
-    : visible;
-  featured = sorted.slice(0, 3);
-}
 ---
-<Base title="Home" description={`${SITE_NAME} — managed with Scribe.`}>
+<Base title="Home" description="Weaver Digital helps small local businesses get found online: a simple website, a Google Business Profile set up right, and a monthly report. $99/month founding rate.">
   <section class="hero">
-    <span class="eyebrow">Locally owned &amp; operated</span>
-    <h1>A lawn you'll actually be proud of.</h1>
-    <p class="hero-sub">
-      {SITE_NAME} keeps yards mowed, fed, and looking sharp — so you don't have to think about it.
-    </p>
-    <div class="hero-actions">
-      <a class="btn btn-primary" href={url('/contact')}>Get a Free Quote</a>
-      {CATALOG_COLLECTION && (
-        <a class="btn btn-secondary" href={url(`/${CATALOG_COLLECTION}`)}>Browse {CATALOG_LABEL}</a>
-      )}
+    <div class="wrap hero-inner">
+      <div>
+        <span class="eyebrow">For small local businesses</span>
+        <h1>Get found <span class="light">online</span></h1>
+        <p class="lead">
+          When someone near you searches for what you do, they should find you. I build your
+          website, set up your Google listing, and send you a simple report every month showing
+          what's working.
+        </p>
+        <div class="actions">
+          <a class="btn btn-blue" href={url('/contact')}>Get in touch</a>
+          <a class="btn btn-outline" href={url('/pricing')}>See pricing</a>
+        </div>
+      </div>
+      <div class="hero-card" aria-hidden="true">
+        <div class="mock-search">
+          <span class="mock-bar">handyman near me</span>
+          <div class="mock-result">
+            <span class="mock-pin">wd</span>
+            <div>
+              <strong>Your Business</strong>
+              <span>★★★★★ · Open now</span>
+              <span class="mock-links"><em>Website</em><em>Call</em><em>Directions</em></span>
+            </div>
+          </div>
+          <div class="mock-result faded"><span class="mock-pin"></span><div><strong></strong><span></span></div></div>
+          <div class="mock-result faded"><span class="mock-pin"></span><div><strong></strong><span></span></div></div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="why-us">
-    <h2>Why homeowners choose us</h2>
-    <div class="card-grid">
-      <div class="card">
-        <h3>🚜 Reliable weekly service</h3>
-        <p>Same crew, same schedule, every week — no surprises.</p>
-      </div>
-      <div class="card">
-        <h3>🌱 Healthy, green results</h3>
-        <p>Fertilization and weed control tailored to your lawn's needs.</p>
-      </div>
-      <div class="card">
-        <h3>💧 Full-service options</h3>
-        <p>From a simple mow to complete seasonal lawn care, we scale with you.</p>
+  <section class="section section-white">
+    <div class="wrap">
+      <span class="eyebrow">Sound familiar?</span>
+      <h2>You're great at the work.<br />The internet just doesn't know it yet.</h2>
+      <div class="grid grid-4" style="margin-top: 32px;">
+        <div class="card"><h3>No website</h3><p class="muted">Or one that hasn't been touched in years.</p></div>
+        <div class="card"><h3>Just a Facebook page</h3><p class="muted">It's something, but it doesn't show up when people search Google.</p></div>
+        <div class="card"><h3>An unclaimed Google listing</h3><p class="muted">Google may already list you, with wrong hours or no photos, and nobody managing it.</p></div>
+        <div class="card"><h3>All word of mouth</h3><p class="muted">Referrals are great. But new customers who've never heard of you can't find you.</p></div>
       </div>
     </div>
   </section>
 
-  {featured.length > 0 && (
-    <section class="teaser">
-      <h2>Popular {CATALOG_LABEL}</h2>
-      <div class="card-grid">
-        {featured.map((entry) => (
-          <a class="card" href={url(`/${CATALOG_COLLECTION}/${entry.id}`)}>
-            <h3>{entry.data[CATALOG_TITLE_FIELD] ?? entry.id}</h3>
-            {CATALOG_PRICE_FIELD && entry.data[CATALOG_PRICE_FIELD] != null && (
-              <p class="price">{formatPrice(entry.data[CATALOG_PRICE_FIELD])} <small>/ month</small></p>
-            )}
-          </a>
-        ))}
+  <section class="section">
+    <div class="wrap">
+      <span class="eyebrow">What you get</span>
+      <h2>Everything you need to show up</h2>
+      <p class="lead">One monthly price covers it all. No tech skills needed on your end.</p>
+      <div class="grid grid-3" style="margin-top: 32px;">
+        <div class="card">
+          <div class="icon-dot">1</div>
+          <h3>A website you can edit</h3>
+          <p class="muted">A clean 3–5 page site that looks good on phones. You can update your hours, photos and services yourself.</p>
+        </div>
+        <div class="card">
+          <div class="icon-dot">2</div>
+          <h3>Your Google listing, done right</h3>
+          <p class="muted">I claim, verify and fill out your Google Business Profile, the listing that shows up on Google Maps.</p>
+        </div>
+        <div class="card">
+          <div class="icon-dot">3</div>
+          <h3>Reviews and a monthly report</h3>
+          <p class="muted">A review link you can text to happy customers, and a one-page report each month showing what changed.</p>
+        </div>
       </div>
-    </section>
-  )}
+      <div class="actions"><a class="btn btn-charcoal" href={url('/services')}>See everything that's included</a></div>
+    </div>
+  </section>
 
-  <p class="managed-note">This site is managed with Scribe. Read the <a href={url('/blog')}>blog</a> or <a href={url('/contact')}>get in touch</a>.</p>
+  <section class="section section-white">
+    <div class="wrap">
+      <span class="eyebrow">How it works</span>
+      <h2>Simple from start to finish</h2>
+      <div class="grid grid-4" style="margin-top: 32px;">
+        <div class="card"><div class="num">01</div><h3>We talk</h3><p class="muted">A quick call about your business and the customers you want more of.</p></div>
+        <div class="card"><div class="num">02</div><h3>You see a preview</h3><p class="muted">I build a preview of your site so you can see it before you decide anything.</p></div>
+        <div class="card"><div class="num">03</div><h3>You go live</h3><p class="muted">Your site launches and your Google listing gets set up and cleaned up.</p></div>
+        <div class="card"><div class="num">04</div><h3>I keep it working</h3><p class="muted">Hosting, updates, Google posts and a monthly report, handled for you.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section band-dark">
+    <div class="wrap center narrow">
+      <span class="eyebrow">Founding rate</span>
+      <h2>$99<span class="light">/month</span> for my first 10 customers</h2>
+      <p class="lead">
+        No setup fee. I'm new, so I'm trading a lower price for the chance to prove what this can
+        do for your business. Your price stays the same for as long as you're with me.
+      </p>
+      <div class="actions">
+        <a class="btn btn-blue" href={url('/contact')}>Claim a founding spot</a>
+        <a class="btn btn-outline" href={url('/pricing')}>Pricing details</a>
+      </div>
+    </div>
+  </section>
 
   <style>
-    .hero { text-align: center; padding: 32px 0 48px; }
-    .eyebrow { text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.8rem; font-weight: 700; color: var(--green-700); }
-    .hero h1 { font-size: 2.4rem; margin: 12px 0; color: var(--green-900); }
-    .hero-sub { max-width: 520px; margin: 0 auto 24px; color: var(--ink-soft); }
-    .hero-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-    .btn { display: inline-block; padding: 12px 24px; border-radius: 999px; font-weight: 700; text-decoration: none; }
-    .btn-primary { background: var(--green-700); color: white; }
-    .btn-secondary { background: white; color: var(--green-700); border: 1px solid var(--green-700); }
-    section.why-us, section.teaser { margin: 48px 0; }
-    section h2 { text-align: center; margin-bottom: 24px; }
-    .card-grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
-    .card { display: block; border: 1px solid var(--border); border-radius: 12px; padding: 20px; background: white; color: var(--ink); text-decoration: none; }
-    .card h3 { margin-top: 0; }
-    .price { font-weight: 700; color: var(--green-700); }
-    .managed-note { text-align: center; color: var(--ink-soft); font-size: 0.9rem; margin-top: 48px; }
+    .hero { padding: 80px 0 72px; }
+    .hero-inner { display: grid; grid-template-columns: 1.15fr 1fr; gap: 56px; align-items: center; }
+    .hero .lead { margin-bottom: 0; }
+    .hero-card {
+      background: var(--charcoal);
+      border-radius: 24px;
+      padding: 28px;
+    }
+    .mock-search { background: var(--white); border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+    .mock-bar {
+      display: block;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 10px 18px;
+      color: var(--gray);
+      font-size: 0.95rem;
+    }
+    .mock-result { display: flex; gap: 14px; align-items: center; padding: 14px; border-radius: 12px; border: 2px solid var(--blue); }
+    .mock-result div { display: flex; flex-direction: column; gap: 4px; font-size: 0.9rem; }
+    .mock-result strong { font-family: var(--heading); font-size: 1.05rem; }
+    .mock-result span { color: var(--gray); }
+    .mock-links { display: flex; flex-wrap: wrap; gap: 6px; }
+    .mock-result > div { min-width: 0; }
+    .mock-links em { font-style: normal; font-size: 0.8rem; font-weight: 600; color: var(--blue); background: #eef1fc; padding: 3px 10px; border-radius: 999px; }
+    .mock-pin {
+      flex: none;
+      width: 44px; height: 44px; border-radius: 12px;
+      background: var(--charcoal); color: var(--light-blue);
+      display: grid; place-items: center;
+      font: 600 1rem var(--heading);
+    }
+    .mock-result.faded { border: 1px solid var(--border); opacity: 0.55; }
+    .mock-result.faded .mock-pin { background: var(--border); }
+    .mock-result.faded strong { width: 120px; height: 12px; background: var(--border); border-radius: 6px; }
+    .mock-result.faded span { width: 80px; height: 10px; background: var(--border); border-radius: 5px; }
+    @media (max-width: 860px) {
+      .hero { padding: 48px 0; }
+      .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+      .hero-card { padding: 16px; border-radius: 20px; }
+      .mock-search { padding: 14px; }
+    }
   </style>
 </Base>

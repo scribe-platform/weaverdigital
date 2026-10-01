@@ -57,29 +57,40 @@ function labelFor(field: string): string {
     )
   ))}
   <div class="cf-turnstile" data-sitekey={turnstileSiteKey}></div>
-  <button type="submit">Request my free quote</button>
+  <button type="submit">Send message</button>
   <p id="scribe-contact-status" role="status"></p>
 </form>
 
 <style>
-  #scribe-contact-form { display: flex; flex-direction: column; gap: 14px; max-width: 480px; margin-top: 24px; }
-  #scribe-contact-form label { display: flex; flex-direction: column; gap: 4px; font-weight: 600; }
+  #scribe-contact-form { display: flex; flex-direction: column; gap: 16px; }
+  #scribe-contact-form label { display: flex; flex-direction: column; gap: 6px; font-weight: 600; font-size: 0.95rem; }
   #scribe-contact-form input, #scribe-contact-form textarea {
     font: inherit;
-    padding: 10px 12px;
-    border: 1px solid var(--border, #dde5df);
-    border-radius: 8px;
+    font-weight: 400;
+    padding: 12px 14px;
+    border: 1px solid var(--border, #e4e4e0);
+    border-radius: 10px;
+    background: var(--off-white, #f7f7f5);
+    color: var(--charcoal, #1b1b1f);
   }
+  #scribe-contact-form input:focus, #scribe-contact-form textarea:focus {
+    outline: 2px solid var(--blue, #3a56d4);
+    outline-offset: 1px;
+    background: #fff;
+  }
+  #scribe-contact-form textarea { min-height: 140px; resize: vertical; }
   #scribe-contact-form button {
     align-self: flex-start;
-    background: var(--green-700, #2f7a4f);
+    background: var(--blue, #3a56d4);
     color: white;
     border: none;
-    padding: 12px 24px;
+    padding: 13px 28px;
     border-radius: 999px;
-    font-weight: 700;
+    font: 600 1rem var(--body, inherit);
     cursor: pointer;
   }
+  #scribe-contact-form button:hover { background: var(--blue-dark, #2e46b3); }
+  #scribe-contact-status { margin: 0; font-weight: 500; }
 </style>
 
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
@@ -143,7 +154,7 @@ function labelFor(field: string): string {
       try {
         await send(pending);
         clearPending();
-        setStatus('Submitted!');
+        setStatus("Thanks! I'll be in touch within a day or two.");
       } catch {
         // Still offline/unreachable — leave it pending and try again on
         // the next page load rather than looping here.
@@ -157,7 +168,7 @@ function labelFor(field: string): string {
 
       try {
         await send(payload);
-        setStatus('Submitted!');
+        setStatus("Thanks! I'll be in touch within a day or two.");
         form.reset();
       } catch {
         savePending(payload);

@@ -1,4 +1,5 @@
 site: weaverdigital
+siteName: Weaver Digital
 turnstileSiteKey: 0x4AAAAAAFHtLCWg1S7IznJp
 contactCollection: inquiries
 collections:
@@ -39,6 +40,11 @@ collections:
       - name: email
         type: string
         required: true
+      - name: phone
+        type: string
+      - name: business
+        type: string
+        label: Business name
       - name: message
         type: text
         required: true

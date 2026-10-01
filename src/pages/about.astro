@@ -1,0 +1,51 @@
+---
+import Base from '../layouts/Base.astro';
+import { url } from '../lib/base';
+---
+<Base title="About" description="Weaver Digital is Ashley Weaver's company. She helps small local businesses get found online.">
+  <section class="page-head">
+    <div class="wrap narrow">
+      <span class="eyebrow">About</span>
+      <h1>Hi, I'm <span class="light">Ashley</span></h1>
+      <p class="lead">
+        I started Weaver Digital to help the small local businesses that usually get left out:
+        the handymen, cleaners, groomers, bakers and food trucks doing great work that nobody can
+        find online.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section-white">
+    <div class="wrap narrow about-body">
+      <p>
+        Most of the businesses I work with have a Facebook page and a lot of happy customers, and
+        that's about it. Big marketing agencies don't bother with them. But they're exactly the
+        businesses where a little help goes the furthest. Getting a Google listing claimed and set
+        up right can take a business from invisible to showing up on the map in a matter of weeks.
+      </p>
+      <p>
+        That's what I focus on. I build you a simple website, get your Google listing working for
+        you, and send you a short report every month so you can see what's happening. You run your
+        business. I'll make sure people can find it.
+      </p>
+      <h2 style="margin-top: 48px;">How I work</h2>
+      <div class="grid grid-3" style="margin-top: 24px;">
+        <div class="card"><h3>Honest</h3><p class="muted">I won't promise you the #1 spot on Google. I'll show you real numbers every month.</p></div>
+        <div class="card"><h3>Simple</h3><p class="muted">One price, plain English, no jargon. You can always reach me directly.</p></div>
+        <div class="card"><h3>Yours</h3><p class="muted">Your domain is in your name. If you ever leave, you keep your website.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section band-dark">
+    <div class="wrap center narrow">
+      <h2>Let's get you <span class="light">found</span></h2>
+      <p class="lead">Tell me a little about your business. I'll get back to you within a day or two.</p>
+      <div class="actions"><a class="btn btn-blue" href={url('/contact')}>Get in touch</a></div>
+    </div>
+  </section>
+
+  <style>
+    .about-body > p { font-size: 1.1rem; }
+  </style>
+</Base>
