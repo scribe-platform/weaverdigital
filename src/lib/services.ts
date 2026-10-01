@@ -11,7 +11,6 @@ export const icons: Record<string, string> = {
   search: '<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',
   list: '<path d="M8 6h13M8 12h13M8 18h13"/><circle cx="3.5" cy="6" r="1"/><circle cx="3.5" cy="12" r="1"/><circle cx="3.5" cy="18" r="1"/>',
   map: '<path d="m9 4-6 3v13l6-3 6 3 6-3V4l-6 3z"/><path d="M9 4v13M15 7v13"/>',
-  ad: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 15l2.5-6L12 15M7.8 13h3.4M15 9v6h1.5a2 2 0 0 0 0-6z"/>',
   star: '<path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1 6.2L12 17.3 6.5 20.2l1-6.2L3 9.6l6.2-.9z"/>',
   chat: '<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/>',
   phone: '<rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/>',
@@ -49,7 +48,6 @@ export const groups: Group[] = [
       { icon: 'search', title: 'Local SEO', line: 'So you rank for the searches that matter.' },
       { icon: 'list', title: 'Directory listings', line: 'Your name, address and phone right everywhere.' },
       { icon: 'map', title: 'More towns', line: 'Show up in the next town over, too.' },
-      { icon: 'ad', title: 'Google Ads', line: 'Ads set up and managed, so you show up on top.' },
     ],
   },
   {
