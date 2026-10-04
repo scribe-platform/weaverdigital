@@ -2,6 +2,8 @@ site: weaverdigital
 siteName: Weaver Digital
 turnstileSiteKey: 0x4AAAAAAFHtLCWg1S7IznJp
 contactCollection: inquiries
+umamiWebsiteId: f79c7239-95d8-47cb-a8c9-1f751ef6d7bf
+umamiScriptUrl: https://analytics.weaverdigital.io/script.js
 collections:
   - name: posts
     label: Posts
