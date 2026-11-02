@@ -2,36 +2,48 @@
 import Base from '../../layouts/Base.astro';
 import { url } from '../../lib/base';
 
-const guides = [
+const sections = [
   {
-    href: '/guides/your-web-address',
-    title: 'Getting your web address',
-    line: 'Buy your domain name, in your name, so you own it outright. About fifteen minutes.',
-    meta: 'Start here · 15 min',
+    title: 'Setting up your domain',
+    line: 'Your web address is the one thing I need sorted before your site can go live. Whichever of these two applies to you, it is a one-off.',
+    guides: [
+      {
+        href: '/guides/your-web-address',
+        title: 'Getting a web address',
+        line: 'No domain name yet? Buy your own, in your name, so you own it outright.',
+        meta: '15 min',
+      },
+      {
+        href: '/guides/porkbun-access',
+        title: 'A domain you already own',
+        line: 'Already have one? I need to be able to change its settings. Here are the ways to let me.',
+        meta: '15 min',
+      },
+    ],
   },
   {
-    href: '/guides/porkbun-access',
-    title: 'Already have a domain at Porkbun?',
-    line: 'Add me as an authorized user and I will do the connecting for you. No password needed.',
-    meta: 'Instead of the first one · 10 min',
-  },
-  {
-    href: '/guides/signing-in',
-    title: 'Signing in to your website',
-    line: 'Open the link we send you, pick your own password, and find your way around.',
-    meta: '5 min',
-  },
-  {
-    href: '/guides/estimate-requests',
-    title: 'Getting told about new enquiries',
-    line: 'Make sure an email lands in your inbox the moment somebody asks you for a price.',
-    meta: '2 min',
+    title: 'Using your dashboard',
+    line: 'Your website has a back room where you can see what is coming in and change what is on the page. These are the bits worth knowing.',
+    guides: [
+      {
+        href: '/guides/signing-in',
+        title: 'Signing in to your website',
+        line: 'Open the link we send you, pick your own password, and find your way around.',
+        meta: '5 min',
+      },
+      {
+        href: '/guides/estimate-requests',
+        title: 'Getting told about new inquiries',
+        line: 'Make sure an email lands in your inbox the moment somebody asks you for a price.',
+        meta: '2 min',
+      },
+    ],
   },
 ];
 ---
 <Base
   title="Guides"
-  description="Short, plain-English guides for Weaver Digital customers: getting your web address, signing in to your website, and getting notified about new enquiries."
+  description="Short, plain-English guides for Weaver Digital customers: setting up your domain name, and using the dashboard behind your website."
   footerCta={false}
 >
   <section class="page-top dots">
@@ -39,27 +51,35 @@ const guides = [
       <span class="tag reveal">Guides</span>
       <h1 class="reveal" data-delay="1">Everything you need, <span class="thin">step by step.</span></h1>
       <p class="lede muted reveal" data-delay="2">
-        Short guides, plain English, no jargon. Work through them in order if you are just getting
-        started — the first one is the only thing I need from you before your site can go live.
+        Short guides, plain English, no jargon. Start with your domain if your site is not live
+        yet; the rest are here for whenever you need them.
       </p>
     </div>
   </section>
 
   <section class="section list-sec">
     <div class="wrap narrow">
-      <div class="list">
-        {guides.map((g, i) => (
-          <a class="row card reveal" data-delay={String(i)} href={url(g.href)}>
-            <span class="num">0{i + 1}</span>
-            <div class="body">
-              <span class="meta">{g.meta}</span>
-              <h2>{g.title}</h2>
-              <p class="muted">{g.line}</p>
-            </div>
-            <span class="go" aria-hidden="true">→</span>
-          </a>
-        ))}
-      </div>
+      {sections.map((s) => (
+        <section class="group">
+          <div class="group-head reveal">
+            <h2>{s.title}</h2>
+            <p class="muted">{s.line}</p>
+          </div>
+          <div class="list">
+            {s.guides.map((g, i) => (
+              <a class="row card reveal" data-delay={String(i)} href={url(g.href)}>
+                <span class="num">0{i + 1}</span>
+                <div class="body">
+                  <span class="meta">{g.meta}</span>
+                  <h3>{g.title}</h3>
+                  <p class="muted">{g.line}</p>
+                </div>
+                <span class="go" aria-hidden="true">→</span>
+              </a>
+            ))}
+          </div>
+        </section>
+      ))}
 
       <div class="note-block">
         <h3>More coming</h3>
@@ -76,6 +96,10 @@ const guides = [
     .narrow { max-width: 820px; }
     .lede { font-size: clamp(1.1rem, 2vw, 1.3rem); line-height: 1.5; margin-top: 24px; max-width: 640px; }
     .list-sec { padding-top: 48px; }
+    .group + .group { margin-top: 64px; }
+    .group-head { margin-bottom: 20px; }
+    .group-head h2 { font-size: clamp(1.6rem, 3vw, 2.1rem); letter-spacing: -0.02em; margin-bottom: 10px; }
+    .group-head p { max-width: 580px; }
     .list { display: grid; gap: 14px; }
     .row {
       display: flex; align-items: center; gap: 26px;
@@ -90,7 +114,7 @@ const guides = [
       display: inline-block; font-size: 0.74rem; font-weight: 600; letter-spacing: 0.06em;
       text-transform: uppercase; color: var(--gray); margin-bottom: 8px;
     }
-    .row h2 { font-size: 1.35rem; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 8px; }
+    .row h3 { font-size: 1.35rem; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 8px; }
     .go { font-size: 1.4rem; color: var(--blue); transition: transform 0.25s var(--ease); flex: 0 0 auto; }
     .row:hover .go { transform: translateX(5px); }
     .note-block { margin-top: 56px; padding-top: 36px; border-top: 1px solid var(--line); }
