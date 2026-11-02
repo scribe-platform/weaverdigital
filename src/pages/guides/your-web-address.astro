@@ -1,0 +1,95 @@
+---
+import Guide from '../../layouts/Guide.astro';
+import { url } from '../../lib/base';
+---
+<Guide
+  title="Getting your web address"
+  heading="Getting your"
+  thin="web address."
+  intro="Your web address — your domain — is what people type to find you. You buy it yourself so it is registered in your name and you own it outright. About fifteen minutes, and around eleven dollars for the first year."
+  description="How to buy your own domain name at Porkbun and connect it to your Weaver Digital website."
+>
+  <div class="note">
+    <p><strong>Why you buy it and not me.</strong> It is registered in your name, so it stays yours whatever happens. I never hold your domain name.</p>
+  </div>
+
+  <div class="guide-section">
+    <h2>The walkthrough</h2>
+    <p>I have put together a guide that takes you through the whole thing screen by screen, with pictures of exactly what you will be looking at. Open it alongside this page — this page is the summary, that is the detail.</p>
+    <div class="actions">
+      <a class="btn btn-blue" href={url('/guides/getting-your-domain-name.pdf')} download>
+        Download the walkthrough <span class="arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="guide-section">
+    <h2>Before you start</h2>
+    <p>Three things to have to hand:</p>
+    <ul class="plain">
+      <li><strong>Your business email.</strong> Porkbun sends receipts and renewal notices there.</li>
+      <li><strong>A credit or debit card.</strong> Around eleven or twelve dollars for the first year of a .com.</li>
+      <li><strong>Two or three name ideas.</strong> Not sure? Send them to me first and I will check them.</li>
+    </ul>
+  </div>
+
+  <h2 class="steps-title">What you will do</h2>
+
+  <div class="steps">
+    <div class="step reveal">
+      <h2>Create your Porkbun account</h2>
+      <p>Porkbun is just a place that sells domain names. Go to <strong>porkbun.com</strong>, click <strong>Sign In</strong>, and create an account with your business email.</p>
+      <p>Use your real name and address — every domain name has to have them on record. Save your username and password somewhere safe; you will need them to renew.</p>
+    </div>
+
+    <div class="step reveal">
+      <h2>Find and buy your name</h2>
+      <p>Search for the name you want. Try your business name with <strong>.com</strong> first — short, easy to say over the phone, no hyphens.</p>
+      <p><strong>Check the spelling twice before you pay.</strong> Porkbun gives no refunds, and a domain name cannot be changed afterwards.</p>
+      <p>At checkout, skip the extras — email hosting, web hosting and Upsell Me. You do not need any of them, that is what I am for. WHOIS privacy and auto-renew are already switched on for you.</p>
+    </div>
+
+    <div class="step reveal">
+      <h2>Connect it to your website</h2>
+      <p>This is the part that points your new address at the site I built you. It is three clicks and the walkthrough has pictures of each one.</p>
+      <ul>
+        <li>On <strong>Domain Management</strong>, click <strong>DNS</strong> under your new name, then <strong>Add record</strong>.</li>
+        <li>Open the <strong>Quick Setup</strong> tab and click <strong>GitHub</strong>. Your site is hosted on GitHub Pages, so that is the right choice even if the name means nothing to you.</li>
+        <li>Then add one more: leave <strong>Host</strong> as <code>www</code>, and in <strong>Answer</strong> put <code>scribe-platform.github.io</code>. Submit, and you are done.</li>
+      </ul>
+    </div>
+
+    <div class="step reveal">
+      <h2>Send me a quick note</h2>
+      <p>Email or text me the address you bought. I finish the connection at my end and let you know the moment your website is live — usually within a day.</p>
+      <div class="actions">
+        <a class="btn btn-ghost" href="mailto:ashley@weaverdigital.io?subject=My%20domain%20name">Email ashley@weaverdigital.io <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="note">
+    <p><strong>Worth doing while you are in there.</strong> Turn on two-factor sign-in under <strong>Account → Settings / Billing → Security and sign-in</strong>. It stops anyone taking over your account, and your domain name along with it.</p>
+  </div>
+
+  <div class="note warn">
+    <p><strong>One thing to tell me if it applies.</strong> If you already use email on that same address — something like you@yourbusiness.com — say so before you change anything. Your email runs off the same settings, and I would rather be careful than take your email down for an afternoon.</p>
+  </div>
+
+  <div class="guide-section">
+    <h2>Already have a domain at Porkbun?</h2>
+    <p>Then you can skip all of this. Instead, <a href={url('/guides/porkbun-access')}>add me as an authorized user</a> and I will do the connecting for you — without ever needing your password.</p>
+  </div>
+
+  <div class="guide-section">
+    <h2>What happens next</h2>
+    <p>Once your address is pointed at your site, I will send you a link to sign in so you can see it and make changes yourself. That is the <a href={url('/guides/signing-in')}>next guide</a>.</p>
+  </div>
+
+  <style>
+    .steps-title { font-size: clamp(1.6rem, 3vw, 2.1rem); margin: 56px 0 18px; }
+    ul.plain { list-style: none; padding: 0; margin: 16px 0 0; display: grid; gap: 12px; }
+    ul.plain li { color: var(--gray); }
+    ul.plain strong { color: var(--charcoal); }
+  </style>
+</Guide>

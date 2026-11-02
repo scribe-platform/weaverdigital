@@ -1,0 +1,81 @@
+---
+import Guide from '../../layouts/Guide.astro';
+import { url } from '../../lib/base';
+---
+<Guide
+  title="Giving me access to your Porkbun account"
+  heading="Giving me access to"
+  thin="your Porkbun account."
+  intro="If your domain name is already at Porkbun, adding me as an authorized user lets me make changes for you — connecting your website, setting up email — without ever needing your password. About ten minutes, and it costs nothing."
+  description="How to add Weaver Digital as an authorized user on your Porkbun account, so we can manage your domain without your password."
+>
+  <div class="note">
+    <p><strong>You stay in control.</strong> I can make changes for you. I cannot transfer your domain or change your password, and you can remove me any time from the same page you added me on.</p>
+  </div>
+
+  <div class="guide-section">
+    <h2>The walkthrough</h2>
+    <p>Same as before — a guide with pictures of every screen. Open it alongside this page.</p>
+    <div class="actions">
+      <a class="btn btn-blue" href={url('/guides/giving-us-access-to-porkbun.pdf')} download>
+        Download the walkthrough <span class="arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="guide-section">
+    <h2>Before you start</h2>
+    <ul class="plain">
+      <li><strong>Your Porkbun login.</strong> Username and password.</li>
+      <li><strong>Your phone, with an authenticator app.</strong> Google Authenticator or Microsoft Authenticator. Both are free.</li>
+      <li><strong>Your email.</strong> Porkbun may send a verification code if it has not verified your address yet.</li>
+    </ul>
+    <p>Porkbun asks for all of this because an authorized user can make changes on your account, so it wants both accounts locked down first. Mine already is.</p>
+  </div>
+
+  <h2 class="steps-title">What you will do</h2>
+
+  <div class="steps">
+    <div class="step reveal">
+      <h2>Verify your phone and email</h2>
+      <p>Click <strong>Account</strong> at the top right, then <strong>Settings / Billing</strong>. You land on <strong>Your details</strong>.</p>
+      <p>Click <strong>send verification</strong> beside your phone number and type in the code Porkbun texts you. Check your primary email says verified too, and do the same if it does not.</p>
+      <p>You can ignore ID verification on that page — it is optional.</p>
+    </div>
+
+    <div class="step reveal">
+      <h2>Turn on two-factor sign-in</h2>
+      <p>Install Google Authenticator or Microsoft Authenticator on your phone first if you do not have one.</p>
+      <p>Still in Settings / Billing, click <strong>Security and sign-in</strong>, and switch on <strong>Two-factor authentication with an app</strong>. Scan the QR code with the app, type the six digits back in, and submit.</p>
+      <div class="note warn">
+        <p><strong>Save the backup codes</strong> Porkbun shows you next. They are what get you in if you lose your phone. Never share them with anyone — me included.</p>
+      </div>
+    </div>
+
+    <div class="step reveal">
+      <h2>Add Weaver Digital</h2>
+      <p>Click <strong>Account</strong> again and choose <strong>Authorized Users</strong>, near the bottom of a fairly long menu — just below Subaccounts.</p>
+      <p>Under <strong>Add Authorized User</strong>, type <code>weaverdigital</code> as the username and click <strong>Submit</strong>.</p>
+    </div>
+
+    <div class="step reveal">
+      <h2>Let me know</h2>
+      <p>Email or text me once you have hit Submit. I get the invitation, accept it, and you will see me listed on your Authorized Users page.</p>
+      <div class="actions">
+        <a class="btn btn-ghost" href="mailto:ashley@weaverdigital.io?subject=Porkbun%20access">Email ashley@weaverdigital.io <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="guide-section">
+    <h2>Removing me later</h2>
+    <p>Go to <strong>Account → Authorized Users</strong> and revoke the access. It takes effect straight away, and you do not have to tell me first.</p>
+  </div>
+
+  <style>
+    .steps-title { font-size: clamp(1.6rem, 3vw, 2.1rem); margin: 56px 0 18px; }
+    ul.plain { list-style: none; padding: 0; margin: 16px 0 20px; display: grid; gap: 12px; }
+    ul.plain li { color: var(--gray); }
+    ul.plain strong { color: var(--charcoal); }
+  </style>
+</Guide>

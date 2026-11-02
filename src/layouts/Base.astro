@@ -71,8 +71,9 @@ const isCurrent = (href: string) => path.replace(/\/$/, '') === href;
           <img src={url('/brand/logo-dark.png')} alt={siteName} width="140" height="39" />
           <nav>
             {nav.map((item) => <a href={url(item.href)}>{item.label}</a>)}
+            <a href={url('/guides')}>Guides</a>
             <a href={url('/contact')}>Contact</a>
-            <a href="mailto:ashley@weaverdigital.io">ashley@weaverdigital.io</a>
+            <a href="https://my.weaverdigital.io" class="signin">Client sign in <span class="arrow">→</span></a>
           </nav>
           <span>&copy; {new Date().getFullYear()} {siteName}</span>
         </div>

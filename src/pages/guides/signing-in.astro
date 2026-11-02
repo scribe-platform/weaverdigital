@@ -1,0 +1,68 @@
+---
+import Guide from '../../layouts/Guide.astro';
+import { url } from '../../lib/base';
+---
+<Guide
+  title="Signing in to your website"
+  heading="Signing in to"
+  thin="your website."
+  intro="Your website has a back room where you can change your own hours, add photos of finished jobs, and read the enquiries people send you. Here is how to get in the first time."
+  description="How to sign in to your Weaver Digital website, set your password, and make your first change."
+>
+  <div class="note">
+    <p><strong>We never send you a password.</strong> We send you a link, and you choose your own password on the other side of it. Nobody here ever knows what it is.</p>
+  </div>
+
+  <div class="steps">
+    <div class="step reveal">
+      <h2>Open the link we sent you</h2>
+      <p>It arrives by text or email, and looks something like <code>my.weaverdigital.io/invite/…</code>. Open it on your phone or your computer, whichever you'd rather use.</p>
+      <p>Can't find it? Just ask and we'll send another — it takes us a few seconds.</p>
+    </div>
+
+    <div class="step reveal">
+      <h2>Choose a password</h2>
+      <p>Type a password you'll remember and press the button. That's the whole thing. Write it down somewhere you'll find it again.</p>
+      <div class="note warn">
+        <p>The link works <strong>once</strong>, and lasts about a week. If it has gone stale by the time you get to it, tell us — we can usually make the link you already have work again, so there's nothing new to go hunting for.</p>
+      </div>
+    </div>
+
+    <div class="step reveal">
+      <h2>Bookmark the sign-in page</h2>
+      <p>From then on, this is the only address you need:</p>
+      <div class="actions">
+        <a class="btn btn-blue" href="https://my.weaverdigital.io" target="_blank" rel="noopener">
+          my.weaverdigital.io <span class="arrow">→</span>
+        </a>
+      </div>
+      <p>It works just as well on your phone as on a computer, so you can add a photo from a job while you're still standing in front of it.</p>
+    </div>
+
+    <div class="step reveal">
+      <h2>Have a look around</h2>
+      <p>Signing in drops you on your own dashboard. The thing to notice is the <strong>Needs you</strong> area at the top — anything waiting on you shows up there, so if that part is empty, nothing is on fire.</p>
+      <p>Down the side you'll find the parts of your site you can change. Which ones you have depends on what we built — usually your services, a gallery of finished work, and customer reviews.</p>
+    </div>
+
+    <div class="step reveal">
+      <h2>Make a change</h2>
+      <p>Pick any section, open an item, and edit it like you would a form. Add a new one with the button at the top of the list.</p>
+      <p>When you save, your website rebuilds itself and your change appears publicly a few minutes later. There's no separate publish button to forget about, and nothing you can break by trying.</p>
+      <div class="note">
+        <p><strong>Photos are the thing worth doing.</strong> A gallery of real finished jobs does more for winning work than anything else you can change in here. Take the picture before you pack the van.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="guide-section">
+    <h2>If you get locked out later</h2>
+    <p>Once you've set a password, you don't need us for this. Use <strong>Forgot your password?</strong> on the sign-in page and it'll email you a link to pick a new one.</p>
+    <p>That's also the answer if your invite link says it has already been used — that message means your password is set, so the forgot-password link is the way back in.</p>
+  </div>
+
+  <div class="guide-section">
+    <h2>What happens next</h2>
+    <p>While you're in there, it's worth two minutes making sure you get an email when somebody asks you for a price. That's the <a href={url('/guides/estimate-requests')}>next guide</a>.</p>
+  </div>
+</Guide>
