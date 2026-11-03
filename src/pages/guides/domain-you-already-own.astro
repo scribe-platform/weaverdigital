@@ -1,0 +1,86 @@
+---
+import Guide from '../../layouts/Guide.astro';
+import { url } from '../../lib/base';
+---
+<Guide
+  title="A domain you already own"
+  heading="A domain you"
+  thin="already own."
+  intro="If you already have a web address, there is nothing to buy. It just has to be pointed at the site I build you — a couple of settings in whichever account holds the name. It is a one-off, and it is quick."
+  description="Already own a domain name? Here is what Weaver Digital needs to point it at your new website, wherever the name is registered."
+>
+  <div class="note">
+    <p><strong>Your domain stays yours.</strong> I never need it transferred and I never need to own it. All I need is to be able to change its settings, and only while there is something to change.</p>
+  </div>
+
+  <div class="guide-section">
+    <h2>What actually has to happen</h2>
+    <p>Two small records get added wherever your domain is managed. They tell the internet that your web address now leads to your new site. Nothing else about the name changes, and nothing about it costs more.</p>
+    <p>The change takes a couple of minutes to make and up to a day for the rest of the internet to catch up. I will tell you the moment your site is live on it.</p>
+  </div>
+
+  <div class="guide-section">
+    <h2>First, who holds your domain?</h2>
+    <p>Whoever you pay each year for the name is the one holding its settings — GoDaddy, Namecheap, Squarespace, Wix, Network Solutions, your old web guy's account. That is where the records have to go.</p>
+    <p><strong>Not sure?</strong> You do not have to go digging. Send me your web address and I can look up who holds it in about a minute.</p>
+  </div>
+
+  <div class="guide-section">
+    <h2>Three ways to let me in</h2>
+    <p>Any of these works. Pick whichever you are most comfortable with.</p>
+
+    <div class="ways">
+      <div class="way card">
+        <span class="meta">What I suggest</span>
+        <h3>Get on a short call with me</h3>
+        <p>You sign in, share your screen, and I tell you exactly what to click. Fifteen minutes, usually less. Nothing changes hands, you see every change as it is made, and you know afterwards where the settings live.</p>
+      </div>
+
+      <div class="way card">
+        <span class="meta">Where it is offered</span>
+        <h3>Add me as a user on your account</h3>
+        <p>Some companies let you give someone permission to make changes without handing over your password — GoDaddy calls it <strong>delegate access</strong>, others have their own name for it. It is the tidiest option where it exists, and you can remove me whenever you like.</p>
+        <p>Tell me who holds your domain and I will tell you whether yours offers this, and exactly what to add.</p>
+      </div>
+
+      <div class="way card">
+        <span class="meta">Works anywhere</span>
+        <h3>Send me the login</h3>
+        <p>Plenty of clients just do this and it is perfectly fine. Text it to me rather than emailing it if you can, and change the password once I tell you I am finished. I do not keep it.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="note warn">
+    <p><strong>Tell me first if you already use email on your domain.</strong> Something like you@yourbusiness.com. Your email runs off the same settings as your website, so I will work around it — but only if I know it is there. I would rather be careful than take your email down for an afternoon.</p>
+  </div>
+
+  <div class="guide-section">
+    <h2>Send me your web address</h2>
+    <p>That is the only thing I need to get started. Tell me the address and which of the three ways above suits you, and I will take it from there.</p>
+    <div class="actions">
+      <a class="btn btn-blue" href="mailto:ashley@weaverdigital.io?subject=My%20domain%20name">Email ashley@weaverdigital.io <span class="arrow">→</span></a>
+    </div>
+  </div>
+
+  <div class="guide-section">
+    <h2>Do not have a domain yet?</h2>
+    <p>Then this is not your guide. Start with <a href={url('/guides/your-web-address')}>getting your web address</a> — you buy the name yourself, in your name, and it takes about fifteen minutes.</p>
+  </div>
+
+  <style>
+    .ways { display: grid; gap: 14px; margin-top: 22px; }
+    .way { padding: 28px 32px; }
+    .way .meta {
+      display: inline-block; font-size: 0.74rem; font-weight: 600; letter-spacing: 0.06em;
+      text-transform: uppercase; color: var(--gray); margin-bottom: 8px;
+    }
+    .way h3 { font-size: 1.2rem; letter-spacing: -0.02em; line-height: 1.25; margin-bottom: 10px; }
+    .way p { color: var(--gray); }
+    .way p + p { margin-top: 12px; }
+    .way strong { color: var(--charcoal); font-weight: 600; }
+    @media (max-width: 700px) {
+      .way { padding: 24px; }
+    }
+  </style>
+</Guide>

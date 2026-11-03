@@ -7,4 +7,8 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
   output: 'static',
   base: process.env.PUBLIC_BASE_PATH || '/',
+  redirects: {
+    // The old slug went out in texts before the guide was split in two.
+    '/guides/porkbun-access': '/guides/domain-you-already-own',
+  },
 });

@@ -1,0 +1,55 @@
+---
+import Guide from '../../layouts/Guide.astro';
+import { url } from '../../lib/base';
+---
+<Guide
+  title="Giving me access to your Porkbun account"
+  heading="Giving me access to"
+  thin="your Porkbun account."
+  intro="If your web address is at Porkbun, you can let me change its settings without ever giving me your password. Porkbun calls it an authorized user. It costs nothing, takes about ten minutes, and you can remove me whenever you like."
+  description="How to add Weaver Digital as an authorized user on your Porkbun account, so we can change your domain settings without needing your password."
+>
+  <div class="note">
+    <p><strong>You do not need this to get your site live.</strong> Pointing your web address at your website is something you do yourself in about fifteen minutes. This is for afterwards, when something needs changing and it is easier all round if I can just do it.</p>
+  </div>
+
+  <div class="guide-section">
+    <h2>What it does and does not let me do</h2>
+    <p><strong>It does</strong> let me change your domain's settings — point it somewhere new, set up email on your own address, or work out why something stopped loading.</p>
+    <p><strong>It does not</strong> let me transfer your domain away, change your password, or see what your password is. You stay the owner, and taking my access away is two clicks.</p>
+  </div>
+
+  <div class="guide-section">
+    <h2>The walkthrough</h2>
+    <p>Every screen you will see, with a picture of each one and the exact thing to click.</p>
+    <div class="actions">
+      <a class="btn btn-blue" href={url('/guides/giving-us-access-to-porkbun.pdf')} download>
+        Download the walkthrough <span class="arrow">→</span>
+      </a>
+    </div>
+    <p>Have your Porkbun login and your phone to hand. Porkbun will not let you add anybody until your phone and email are verified and two-factor sign-in is switched on — it wants both accounts locked down first, and mine already is. If you do not have an authenticator app, Google Authenticator and Microsoft Authenticator are both free.</p>
+  </div>
+
+  <div class="note warn">
+    <p><strong>Save the backup codes Porkbun gives you</strong> when you turn on two-factor sign-in. They are what get you back in if you lose your phone. Never share them with anyone — me included.</p>
+  </div>
+
+  <div class="guide-section">
+    <h2>The username to add is weaverdigital</h2>
+    <p>That is the one thing on the form you have to get right. Under <strong>Add Authorized User</strong>, type <code>weaverdigital</code> and submit.</p>
+    <p>Then email or text me. I get the invitation, accept it, and you will see me listed on your Authorized Users page.</p>
+    <div class="actions">
+      <a class="btn btn-ghost" href="mailto:ashley@weaverdigital.io?subject=Access%20to%20my%20domain">Email ashley@weaverdigital.io <span class="arrow">→</span></a>
+    </div>
+  </div>
+
+  <div class="guide-section">
+    <h2>Removing me later</h2>
+    <p>Go to <strong>Account → Authorized Users</strong> and revoke the access. It takes effect straight away, you do not have to tell me first, and there are no hard feelings.</p>
+  </div>
+
+  <div class="guide-section">
+    <h2>Your domain is somewhere else?</h2>
+    <p>Then this is not your guide. <a href={url('/guides/domain-you-already-own')}>A domain you already own</a> covers the ways to give me what I need wherever the name is registered.</p>
+  </div>
+</Guide>
