@@ -1,4 +1,5 @@
 site: weaverdigital
+environment: production
 siteName: Weaver Digital
 turnstileSiteKey: 0x4AAAAAAFHtLCWg1S7IznJp
 contactCollection: inquiries
