@@ -8,9 +8,11 @@ export interface Props {
   description?: string;
   /** Share-card image, repo-relative. Falls back to the site-wide card. */
   image?: string;
+  /** Keep this page out of search results. Links on it are still followed. */
+  noindex?: boolean;
 }
 
-const { title, description, image = '/og-card.png' } = Astro.props;
+const { title, description, image = '/og-card.png', noindex = false } = Astro.props;
 
 // Astro.url.pathname carries the base path (`/weaverdigital/about/` on a
 // github.io project page), but Astro.site is the live domain, where the site
@@ -25,6 +27,7 @@ const canonical = new URL(path, Astro.site);
 const imageUrl = new URL(image, Astro.site);
 ---
 <title>{title}</title>
+{noindex && <meta name="robots" content="noindex, follow" />}
 {description && <meta name="description" content={description} />}
 <link rel="canonical" href={canonical} />
 

@@ -15,10 +15,12 @@ export interface Props {
   description?: string;
   /** Share-card image for this page, repo-relative. Defaults to the site's. */
   ogImage?: string;
+  /** Keep this page out of search results. */
+  noindex?: boolean;
   footerCta?: boolean;
 }
 
-const { title, siteName = SITE_NAME, description, ogImage, footerCta = true } = Astro.props;
+const { title, siteName = SITE_NAME, description, ogImage, noindex = false, footerCta = true } = Astro.props;
 const fullTitle = title === 'Home' ? `${siteName} · Get found online` : `${title} · ${siteName}`;
 const path = Astro.url.pathname.replace(import.meta.env.BASE_URL.replace(/\/$/, ''), '') || '/';
 const nav = [
@@ -32,7 +34,7 @@ const isCurrent = (href: string) => path.replace(/\/$/, '') === href;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <SeoHead title={fullTitle} description={description} image={ogImage} />
+    <SeoHead title={fullTitle} description={description} image={ogImage} noindex={noindex} />
     <link rel="icon" type="image/png" href={url('/favicon.png')} />
     <link rel="apple-touch-icon" href={url('/apple-touch-icon.png')} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />

@@ -7,7 +7,11 @@ const posts = (await getCollection('posts')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
 );
 ---
-<Base title="Blog">
+<Base
+  title="Blog"
+  description="Notes from Weaver Digital on getting a small local business found online."
+  noindex={posts.length === 0}
+>
   <h1>Blog</h1>
   {posts.length === 0 && <p>No posts yet.</p>}
   <ul>

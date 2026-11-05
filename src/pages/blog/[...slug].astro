@@ -13,8 +13,19 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+
+// A post has no description field in the schema, so take the opening of its
+// body rather than letting the page ship without one.
+const excerpt = post.body
+  ?.replace(/^---[\s\S]*?---/, '')
+  .replace(/!?\[([^\]]*)\]\([^)]*\)/g, '$1')
+  .replace(/[#>*_`]/g, '')
+  .split(/\n\s*\n/)
+  .map((para) => para.replace(/\s+/g, ' ').trim())
+  .find((para) => para.length > 0);
+const description = excerpt && excerpt.length > 160 ? `${excerpt.slice(0, 157).trimEnd()}…` : excerpt;
 ---
-<Base title={post.data.title}>
+<Base title={post.data.title} description={description} ogImage={post.data.heroImage}>
   <article>
     <a class="back-link" href={url('/blog')}>&larr; Back to blog</a>
     <h1>{post.data.title}</h1>
