@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import ContactForm from '../components/ContactForm.astro';
 import { CONTACT_COLLECTION, CONTACT_FIELDS, SITE_SLUG, TURNSTILE_SITE_KEY } from '../site-config';
+import { EMAIL, EMAIL_HREF, PHONE, PHONE_HREF } from '../lib/contact';
 
 const needs = ['Website', 'Google & local search', 'Reviews', 'Social media', 'Design & content', 'Not sure yet'];
 ---
@@ -12,7 +13,8 @@ const needs = ['Website', 'Google & local search', 'Reviews', 'Social media', 'D
         <span class="tag reveal">Contact</span>
         <h1 class="reveal" data-delay="1">Let's <span class="thin">talk.</span></h1>
         <p class="muted sub reveal" data-delay="2">No pressure. I'll reply within a day or two.</p>
-        <a class="mail reveal" data-delay="3" href="mailto:ashley@weaverdigital.io">ashley@weaverdigital.io <span>→</span></a>
+        <a class="mail reveal" data-delay="3" href={EMAIL_HREF}>{EMAIL} <span>→</span></a>
+        <a class="tel reveal" data-delay="3" href={PHONE_HREF}>{PHONE}</a>
       </div>
       <div class="form-card reveal" data-delay="1">
         <p class="need-label">What do you need?</p>
@@ -40,6 +42,11 @@ const needs = ['Website', 'Google & local search', 'Reviews', 'Social media', 'D
     }
     .mail span { color: var(--blue); transition: transform 0.25s var(--ease); }
     .mail:hover span { transform: translateX(4px); }
+    .tel {
+      display: block; margin-top: 18px;
+      font: 500 1.1rem var(--heading); color: var(--gray); text-decoration: none;
+    }
+    .tel:hover { color: var(--blue); }
     .form-card { background: var(--white); border-radius: 30px; padding: 34px; box-shadow: var(--shadow-3); }
     .need-label { font-weight: 600; font-size: 0.95rem; margin-bottom: 12px; }
     .needs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }

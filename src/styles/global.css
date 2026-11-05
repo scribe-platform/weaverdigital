@@ -201,6 +201,9 @@ p { margin: 0; }
 .footer-row nav { display: flex; gap: 22px; flex-wrap: wrap; }
 .site-footer a { color: var(--white); text-decoration: none; }
 .site-footer a:hover { color: var(--light-blue); }
+/* The phone number belongs on every page, not just the ones about contacting
+   us — a caller lands wherever search sent them. */
+.footer-row .tel { font-weight: 500; white-space: nowrap; }
 /* The one outbound action in the footer — a client heading for their own site. */
 .footer-row .signin { color: var(--light-blue); font-weight: 500; }
 .footer-row .signin .arrow { display: inline-block; transition: transform 0.25s var(--ease); }

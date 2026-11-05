@@ -17,6 +17,7 @@
     "preview": "astro preview"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
     "astro": "^7.3.3",
     "cookie": "2.0.1"
   },

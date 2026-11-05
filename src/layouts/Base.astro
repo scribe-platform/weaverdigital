@@ -1,5 +1,7 @@
 ---
 import { url } from '../lib/base';
+import { PHONE, PHONE_HREF } from '../lib/contact';
+import SeoHead from '../components/SeoHead.astro';
 import {
   SITE_NAME,
   UMAMI_SCRIPT_URL,
@@ -11,10 +13,12 @@ export interface Props {
   title: string;
   siteName?: string;
   description?: string;
+  /** Share-card image for this page, repo-relative. Defaults to the site's. */
+  ogImage?: string;
   footerCta?: boolean;
 }
 
-const { title, siteName = SITE_NAME, description, footerCta = true } = Astro.props;
+const { title, siteName = SITE_NAME, description, ogImage, footerCta = true } = Astro.props;
 const fullTitle = title === 'Home' ? `${siteName} · Get found online` : `${title} · ${siteName}`;
 const path = Astro.url.pathname.replace(import.meta.env.BASE_URL.replace(/\/$/, ''), '') || '/';
 const nav = [
@@ -28,8 +32,7 @@ const isCurrent = (href: string) => path.replace(/\/$/, '') === href;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{fullTitle}</title>
-    {description && <meta name="description" content={description} />}
+    <SeoHead title={fullTitle} description={description} image={ogImage} />
     <link rel="icon" type="image/png" href={url('/favicon.png')} />
     <link rel="apple-touch-icon" href={url('/apple-touch-icon.png')} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -73,6 +76,7 @@ const isCurrent = (href: string) => path.replace(/\/$/, '') === href;
             {nav.map((item) => <a href={url(item.href)}>{item.label}</a>)}
             <a href={url('/guides')}>Guides</a>
             <a href={url('/contact')}>Contact</a>
+            <a href={PHONE_HREF} class="tel">{PHONE}</a>
             <a href="https://my.weaverdigital.io" class="signin">Client sign in <span class="arrow">→</span></a>
           </nav>
           <span>&copy; {new Date().getFullYear()} {siteName}</span>

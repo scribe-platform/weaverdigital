@@ -1,0 +1,41 @@
+---
+// The whole head's worth of findability, in one place, so a page cannot be
+// built that has half of it: the title, the description, the canonical URL,
+// and the card a shared link unfurls into. `Base.astro` is its only caller.
+export interface Props {
+  /** The full <title>, already composed. Also used as the card's title. */
+  title: string;
+  description?: string;
+  /** Share-card image, repo-relative. Falls back to the site-wide card. */
+  image?: string;
+}
+
+const { title, description, image = '/og-card.png' } = Astro.props;
+
+// Astro.url.pathname carries the base path (`/weaverdigital/about/` on a
+// github.io project page), but Astro.site is the live domain, where the site
+// is served from the root. Strip the base so the two never compose into a
+// canonical URL that doesn't exist.
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const path = (base && Astro.url.pathname.startsWith(base)
+  ? Astro.url.pathname.slice(base.length)
+  : Astro.url.pathname) || '/';
+
+const canonical = new URL(path, Astro.site);
+const imageUrl = new URL(image, Astro.site);
+---
+<title>{title}</title>
+{description && <meta name="description" content={description} />}
+<link rel="canonical" href={canonical} />
+
+<meta property="og:site_name" content="Weaver Digital" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content={title} />
+{description && <meta property="og:description" content={description} />}
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={imageUrl} />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+{description && <meta name="twitter:description" content={description} />}
+<meta name="twitter:image" content={imageUrl} />

@@ -1,6 +1,7 @@
 ---
 import Base from './Base.astro';
 import { url } from '../lib/base';
+import { EMAIL_HREF, PHONE, PHONE_HREF } from '../lib/contact';
 
 export interface Props {
   title: string;
@@ -37,8 +38,8 @@ const { title, eyebrow = 'Guide', heading, thin, intro, description } = Astro.pr
           <p class="muted">Text me, or send a note. I would rather you ask than wrestle with it.</p>
         </div>
         <div class="end-actions">
-          <a class="btn btn-blue" href="mailto:ashley@weaverdigital.io">Email Ashley <span class="arrow">→</span></a>
-          <a class="btn btn-ghost" href="tel:+17174067936">(717) 406-7936</a>
+          <a class="btn btn-blue" href={EMAIL_HREF}>Email Ashley <span class="arrow">→</span></a>
+          <a class="btn btn-ghost" href={PHONE_HREF}>{PHONE}</a>
         </div>
       </div>
       <a class="back bottom" href={url('/guides')}><span class="arrow">←</span> All guides</a>

@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import { url } from '../lib/base';
 import { groups, icons } from '../lib/services';
+import { EMAIL, PHONE, PHONE_HREF } from '../lib/contact';
 
 const svg = (name: string) =>
   `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${icons[name]}</svg>`;
@@ -19,8 +20,30 @@ const steps = [
   ['Launch', 'Site live, Google listing fixed.'],
   ['Grow', 'I keep it all running.'],
 ];
+// What a search engine reads to decide this is a business in a place, rather
+// than a page about one. No `address`: Weaver Digital is a service area
+// business customers don't visit, and Google's guidance is to declare the
+// area instead of publishing a street address.
+const business = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
+  name: 'Weaver Digital',
+  description:
+    'Websites, Google Business Profiles, reviews, social media and design for small local businesses.',
+  url: 'https://weaverdigital.io',
+  telephone: PHONE_HREF.replace('tel:', ''),
+  email: EMAIL,
+  image: 'https://weaverdigital.io/og-card.png',
+  logo: 'https://weaverdigital.io/brand/logo.png',
+  areaServed: {
+    '@type': 'AdministrativeArea',
+    name: 'South-central Pennsylvania',
+  },
+  founder: { '@type': 'Person', name: 'Ashley Weaver' },
+};
 ---
 <Base title="Home" description="Websites, Google listings, reviews, social media and design for small local businesses.">
+  <script type="application/ld+json" set:html={JSON.stringify(business)} is:inline />
   <!-- HERO -->
   <section class="hero dots">
     <div class="glow" aria-hidden="true"></div>
@@ -33,6 +56,7 @@ const steps = [
           <a class="btn btn-blue" href={url('/contact')}>Let's talk <span class="arrow">→</span></a>
           <a class="btn btn-ghost" href={url('/services')}>See services</a>
         </div>
+        <p class="hero-tel">Or call <a href={PHONE_HREF}>{PHONE}</a></p>
       </div>
 
       <div class="scene reveal" data-delay="1" aria-hidden="true">
@@ -203,6 +227,9 @@ const steps = [
     }
     .hero-grid { position: relative; display: grid; grid-template-columns: 1fr 1.05fr; gap: 40px; align-items: center; }
     .hero-sub { font-size: 1.25rem; margin: 22px 0 34px; }
+    .hero-tel { margin-top: 20px; font-size: 1rem; color: var(--gray); }
+    .hero-tel a { font-weight: 600; text-decoration: none; white-space: nowrap; }
+    .hero-tel a:hover { text-decoration: underline; }
 
     .scene { perspective: 1400px; }
     .stack {
